@@ -1,38 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Palette: a late-bar-shift ink with a brass jigger accent and a
+     muted herbal green for garnish/secondary detail. */
+  --color-ink: #14151c;
+  --color-surface: #1c1e28;
+  --color-surface-raised: #262836;
+  --color-line: #34374a;
+  --color-text: #e8e4da;
+  --color-text-dim: #96919e;
+  --color-brass: #c98a3e;
+  --color-brass-strong: #e0a25c;
+  --color-brass-soft: rgba(201, 138, 62, 0.16);
+  --color-verdant: #7a9b76;
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-card: 0 24px 48px -28px rgba(0, 0, 0, 0.65);
+
+  color-scheme: dark;
+  font-family: var(--font-body);
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-text);
+  background-color: var(--color-ink);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  width: auto;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-brass);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-brass-strong);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--color-ink);
 }
 
 h1 {
+  font-family: var(--font-display);
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -42,36 +79,31 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-brass);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 3px solid var(--color-brass);
+  outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a:focus-visible {
+  outline: 3px solid var(--color-brass);
+  outline-offset: 2px;
 }
 
+/* Referenced by shared/components/NavRow.jsx to mark the active list row. */
 .nav-item.active,
 .text-primary {
-  color:yellow;
+  color: var(--color-brass-strong);
 }
 .nav-item.active:hover,
 .text-primary:hover {
-  color:yellow;
+  color: var(--color-brass-strong);
 }

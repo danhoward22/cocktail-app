@@ -1,17 +1,24 @@
+import styles from "./Cocktail.module.css"
+
 export function Cocktail({cocktail}){
     return(
-        <>
-            <h1>{cocktail.name}</h1>
-            <ul>
+        <div className={styles.card}>
+            <h1 className={styles.name}>{cocktail.name}</h1>
+            <ul className={styles.ingredients}>
                 {cocktail.ingredients.map((ingredient)=>{
-                    return <li>{ingredient.name} {ingredient.qty}{ingredient.units}</li>
+                    return (
+                        <li className={styles.ingredient}>
+                            <span className={styles.ingredientName}>{ingredient.name}</span>
+                            <span className={styles.measure}>{ingredient.qty}{ingredient.units}</span>
+                        </li>
+                    )
                 })}
-                {cocktail.garnishes.length == 1 && <li>Garnish: {cocktail.garnishes[0]}</li>}
+                {cocktail.garnishes.length == 1 && <li className={styles.garnish}>Garnish: {cocktail.garnishes[0]}</li>}
                 {cocktail.garnishes.length > 1 && 
-                    <li>Garnishes: {cocktail.garnishes.map((garnish)=> garnish ).join(", ")}</li>
+                    <li className={styles.garnish}>Garnishes: {cocktail.garnishes.map((garnish)=> garnish ).join(", ")}</li>
                 }
             </ul>
-            <p>{cocktail.notes}</p>
-        </>
+            <p className={styles.notes}>{cocktail.notes}</p>
+        </div>
     )
 }

@@ -10,6 +10,8 @@ import { useSearchBy } from "../hooks/useSearchBy"
 
 import { filterCocktails } from "../utils/cocktailUtils"
 
+import styles from "./CocktailSearchPage.module.css"
+
 export function CocktailSearchPage() {
   const cocktails = useLoaderData()
   const [searchBy, setSearchBy] = useSearchBy()
@@ -17,7 +19,7 @@ export function CocktailSearchPage() {
   const filteredCocktails = filterCocktails(cocktails, deferredQuery, searchBy)
 
   return (
-    <div>
+    <div className={styles.page}>
       <CocktailSearchToggle searchBy={searchBy} setSearchBy={setSearchBy}/>
       <CocktailSearchBar query={query} setQuery={setQuery} />
       <CocktailList cocktails={filteredCocktails}/>

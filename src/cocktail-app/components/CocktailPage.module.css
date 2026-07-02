@@ -1,0 +1,9 @@
+.page {
+  margin-top: 0.5rem;
+}
+
+.loading {
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+}

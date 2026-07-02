@@ -1,22 +1,25 @@
 import { VirtualNavList } from '../../shared/components/VirtualNavList'
+import styles from './CocktailList.module.css'
 
 export function CocktailList({cocktails}) {
   if(cocktails.length===0){
     return (
-      <div>No cocktails found</div>
+      <div className={styles.empty}>No cocktails found</div>
     )
   }
 
   const renderItem = (item) => {
     return (
       <>
-        <div>{item.name}</div>
-        <div>{item.ingredients.join()}</div>
+        <div className={styles.itemName}>{item.name}</div>
+        <div className={styles.itemIngredients}>{item.ingredients.join(", ")}</div>
       </>
     )
   }
 
   return (
-    <VirtualNavList items={cocktails} rowHeight={50} renderItem={renderItem} pathPrefix="/cocktails/"/>
+    <div className={styles.list}>
+      <VirtualNavList items={cocktails} rowHeight={56} renderItem={renderItem} pathPrefix="/cocktails/"/>
+    </div>
   )
 }

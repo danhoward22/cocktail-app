@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router';
+import styles from './NavRow.module.css'
 
 export function NavRow({ index, style, items, renderItem, pathPrefix }) {
   const item = items[index]
@@ -7,10 +8,10 @@ export function NavRow({ index, style, items, renderItem, pathPrefix }) {
   const isActive = location.pathname === path;
 
   return (
-    <div style={style}>
+    <div style={style} className={styles.row}>
       <Link 
         to={path} 
-        className={`nav-item ${isActive ? 'active' : ''}`}
+        className={`${styles.link} nav-item ${isActive ? 'active' : ''}`}
       >
         {renderItem ? renderItem(item) : item.name}
       </Link>
