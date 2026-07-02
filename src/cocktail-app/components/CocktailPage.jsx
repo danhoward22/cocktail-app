@@ -5,7 +5,7 @@ export function CocktailPage() {
   const [cocktail, isPending] = useCocktail()
 
   return (
-    <div style={{border:"1px solid white"}}>
+    <div>
       {isPending ? 
         <p>⌛ Loading...</p> : 
         (cocktail && <Cocktail cocktail={cocktail}/>)}

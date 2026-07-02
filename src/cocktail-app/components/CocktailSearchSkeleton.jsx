@@ -8,11 +8,11 @@ export function CocktailSearchSkeleton(){
     <div>
       <CocktailSearchToggle/>
       <CocktailSearchBar/>
-      <div style={{border:"1px solid white"}}>
+      <div>
         <p>⌛ Loading...</p>
       </div>
       {cocktailId && 
-        <div style={{border:"1px solid white"}}>
+        <div>
             <p>⌛ Loading...</p>
         </div>
       }

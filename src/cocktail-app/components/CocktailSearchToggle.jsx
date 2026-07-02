@@ -1,7 +1,7 @@
 export function CocktailSearchToggle({searchBy, setSearchBy}) {
 
   return (
-    <div style={{border:"1px solid white"}}>
+    <div>
       <p>Search By: </p>
       <label>
         <input

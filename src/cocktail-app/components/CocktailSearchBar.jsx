@@ -1,6 +1,6 @@
 export function CocktailSearchBar({query, setQuery}) {
   return (
-    <div style={{border:"1px solid white"}}>
+    <div>
       <input
         type="text"
         value={query}

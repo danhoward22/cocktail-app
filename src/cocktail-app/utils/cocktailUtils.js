@@ -79,7 +79,6 @@ export async function fetchCocktailList(){
 }
 
 export function filterCocktails(cocktails, query, searchBy) {
-    const lowerQuery = query.toLowerCase()
     if(searchBy=="ingredient"){
       return cocktails.filter((cocktail) => {
         return (
