@@ -9,7 +9,8 @@ export function CocktailPage() {
     <div className={styles.page}>
       {isPending ? 
         <p className={styles.loading}>⌛ Loading...</p> : 
-        (cocktail && <Cocktail cocktail={cocktail}/>)}
+        (cocktail && <Cocktail cocktail={cocktail}/>)
+      }
     </div>
   )
 }

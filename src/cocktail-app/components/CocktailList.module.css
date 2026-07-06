@@ -1,7 +1,9 @@
 .list {
+  display: flexbox;
+  min-height: 0;
+  overflow: auto;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
-  overflow: hidden;
   background: var(--color-surface);
 }
 
@@ -13,6 +15,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.itemSource {
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+  margin-left: 0.85rem;
 }
 
 .itemIngredients {
@@ -33,4 +41,35 @@
   border: 1px dashed var(--color-line);
   border-radius: var(--radius-md);
   background: var(--color-surface);
+}
+
+/*NavRow styles*/
+.row {
+  padding: 0 0.25rem;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0.4rem 1.1rem;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--color-line);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.row:last-child .link {
+  border-bottom: none;
+}
+
+.link:hover {
+  background: var(--color-surface-raised);
+}
+
+.link:global(.active) {
+  border-left-color: var(--color-brass);
+  background: var(--color-brass-soft);
 }

@@ -11,7 +11,10 @@ export function CocktailList({cocktails}) {
   const renderItem = (item) => {
     return (
       <>
-        <div className={styles.itemName}>{item.name}</div>
+        <div className={styles.itemName}>
+          {item.name}
+          {item.source && <span className={styles.itemSource}>{item.source}</span>}
+        </div>
         <div className={styles.itemIngredients}>{item.ingredients.join(", ")}</div>
       </>
     )
@@ -19,7 +22,7 @@ export function CocktailList({cocktails}) {
 
   return (
     <div className={styles.list}>
-      <VirtualNavList items={cocktails} rowHeight={56} renderItem={renderItem} pathPrefix="/cocktails/"/>
+      <VirtualNavList items={cocktails} rowHeight={56} styles={styles} renderItem={renderItem} pathPrefix="/cocktails/"/>
     </div>
   )
 }
