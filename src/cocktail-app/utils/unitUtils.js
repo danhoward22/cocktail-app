@@ -29,17 +29,20 @@ export function getClosestFraction(decimalValue) {
     let bestFraction = new Fraction(Math.round(decimalValue));
     let minError = Math.abs(bestFraction.valueOf() - decimalValue);
 
-    const allowedDenominators = [2, 3, 4, 8];
-    allowedDenominators.forEach(d => {
-        // Create a fraction for this specific denominator
-        let f = new Fraction(Math.round(decimalValue * d), d);
-        
-        // Calculate the distance/error
-        let error = Math.abs(f.valueOf() - decimalValue);
-        
-        if (error < minError) {
-            minError = error;
-            bestFraction = f;
+    //allowed denominators
+    [2, 3, 4, 8, 16, 32].forEach(d => {
+        //only allow fractions smaller than 1/8 if the current best fraction is 0
+        if(d <= 8 || bestFraction.valueOf()==0){
+            // Create a fraction for this specific denominator
+            let f = new Fraction(Math.round(decimalValue * d), d);
+            
+            // Calculate the distance/error
+            let error = Math.abs(f.valueOf() - decimalValue);
+            
+            if (error < minError ) {
+                minError = error;
+                bestFraction = f;
+            }
         }
     });
 

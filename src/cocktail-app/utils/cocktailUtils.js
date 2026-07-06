@@ -7,7 +7,7 @@ const cocktails = [
     ingredients:[
       {id:1, name:"Rye Whiskey", parents:["Whiskey"], qty:2, units:"oz"},
       {id:2, name:"Sweet Vermouth", parents:[], qty:1, units:"oz"},
-      {id:3, name:"Angostura Bitters", parents:[], qty:2, units:"dash"},
+      {id:3, name:"Angostura Bitters", parents:[], qty:1, units:"dash"},
     ],
     garnishes:[{id:11, name:"Cherry", qty:1}],
     notes:"Stir, serve up."
@@ -40,7 +40,7 @@ const cocktails = [
     ingredients:[
       {id:9, name:"Bourbon", parents:["Whiskey"], qty:2, units:"oz"},
       {id:10, name:"Simple Syrup", parents:[], qty:.25, units:"oz"},
-      {id:3, name:"Angostura Bitters", parents:[], qty:2, units:"dash"},
+      {id:3, name:"Angostura Bitters", parents:[], qty:1, units:"dash"},
     ],
     garnishes:[{id:11, name:"Cherry", qty:2},{id:13,name:"Orange Peel",qty:1}],
     notes:"Build in glass with ice.",
