@@ -14,7 +14,7 @@ export function useMeasure(quantity, baseUnits){
         if(units=="drops"){ return Math.round(q) }
 
         return getClosestFraction(q)
-    },[units])
+    },[quantity, baseUnits, units])
 
     return [qty, units, setUnits]
 }
