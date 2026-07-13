@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\cocktail-app",
+    "\\src\\cocktail-app\\components",
+    "\\src\\cocktail-app\\hooks",
+    "\\src\\cocktail-app\\utils",
+    "\\src\\shared",
+    "\\src\\shared\\hooks",
+    "\\src\\shared\\utils"
+  ],
+  "SelectedNode": "\\src\\shared\\utils\\localStorageUtils.js",
+  "PreviewInSolutionExplorer": false
+}

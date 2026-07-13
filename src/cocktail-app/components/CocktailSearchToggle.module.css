@@ -9,24 +9,14 @@
   width: fit-content;
 }
 
-.label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-dim);
-  margin: 0;
-  padding: 0 0.65rem 0 0.75rem;
-}
-
 .option {
   position: relative;
   display: inline-flex;
   align-items: center;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: clamp(.7rem, 3vw, .85rem);
   color: var(--color-text-dim);
-  padding: 0.45rem 1rem;
+  padding: 0.45rem clamp(.75rem, 3vw, 1rem);
   border-radius: 999px;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;

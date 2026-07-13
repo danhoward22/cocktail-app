@@ -1,9 +1,33 @@
 .page {
-  margin-top: 0.5rem;
+  display: flex;
+  height:45vh;
+  align-items: flex-start;
 }
 
 .loading {
+  max-width: 720px;
+  min-width: 320px;
+  flex:1;
+  margin: 0 auto;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  background: var(--color-surface);
+}
+
+.loadingText {
   font-family: var(--font-mono);
   color: var(--color-text-dim);
   font-size: 0.85rem;
+  margin: 0;
+}
+
+.close {
+  position:absolute;
+  top:0;
+  right:0;
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  font-size: .75rem;
+  padding: 1.25rem 1.8rem 0 0;
 }

@@ -19,8 +19,10 @@ export function CocktailSearchPage() {
 
   return (
     <div className={styles.page}>
-      <CocktailSearchToggle searchBy={searchBy} setSearchBy={setSearchBy}/>
-      <CocktailSearchBar query={query} setQuery={setQuery} />
+      <div className={styles.searchControls}>
+        <CocktailSearchBar query={query} setQuery={setQuery} />
+        <CocktailSearchToggle searchBy={searchBy} setSearchBy={setSearchBy}/>
+      </div>
       <CocktailList cocktails={filteredCocktails}/>
       <Outlet/>
     </div>

@@ -45,8 +45,8 @@ Each component that needs styling has a co-located `Component.module.css` file, 
 
 ## Routes
 
-| Path                         | Renders                                      |
-|-------------------------------|-----------------------------------------------|
+| Path                           | Renders                                        |
+|--------------------------------|------------------------------------------------|
 | `/`                            | Home page                                      |
 | `/cocktails`                   | Search page (loads the full cocktail list)     |
 | `/cocktails/:cocktailId`       | Recipe detail, nested inside the search page   |
@@ -55,29 +55,31 @@ Each component that needs styling has a co-located `Component.module.css` file, 
 
 ## Data
 
-Cocktail data currently lives in `src/cocktail-app/utils/cocktailUtils.js` as an in-memory array, with `fetchCocktailList` and `fetchCocktail` simulating network latency. Swapping these for real API calls shouldn't require changes elsewhere, since components only depend on the shape of the returned data.
+Cocktail data currently initializes in `src/cocktail-app/utils/cocktailUtils.js` as localStorage arrays, with `fetchCocktailList` and `fetchCocktail` simulating database queries and network latency.
 
 Each ingredient carries a base `qty` and `units` (`oz`, `tbsp`, `tsp`, `mL`, `dash`, `drops`, or none for countable items like mint leaves). Garnishes are now objects (`{id, name, qty}`) rather than plain strings, so a garnish can have its own count (e.g. two cherries).
 
 ## Unit conversion
 
-Each `Ingredient` row uses the `useMeasure` hook to keep its own local unit state:
+Each `Ingredient` row uses the `useMeasure` hook to keep its own local unit state, and `UnitSelect` to alter the displayed measure units.
 
-- `unitUtils.js` holds the conversion matrix between `oz`, `tbsp`, `tsp`, `mL`, `dash`, and `drops`, plus `getClosestFraction`, which snaps a converted decimal to the nearest sensible fraction (halves, thirds, quarters, eighths) instead of showing something like `0.6666666 oz`.
-- Switching a unit via `UnitSelect` only affects that one ingredient's display — it doesn't mutate the underlying cocktail data.
+`unitUtils.js` holds the conversion matrix between `oz`, `tbsp`, `tsp`, `mL`, `dash`, and `drops`, and `getClosestFraction`, which snaps a converted decimal to the nearest sensible fraction (halves, thirds, quarters, eighths). 1/16 and 1/32 are allowed for small measures to to avoid rounding to zero.
 
 ## Development roadmap
 
-1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out real forms to save custom cocktails and ingredients to `localStorage`.
-2. **Add "Edit Cocktail" and "Edit Ingredient" functionality** — Utilize the Add Cocktail and Ingredient forms to enable edit capabilities to existing custom recipes. Disable editing for sample cocktails until API solution is online.
+1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out real forms to save cocktails and ingredients to `localStorage`.
+2. **Add "Edit Cocktail" and "Edit Ingredient" functionality** — Utilize the Add Cocktail and Ingredient forms to enable edit capabilities to existing custom recipes.
 3. **Quantity multiplier** — Create a recipe multiplier field to to scale up volumes for batch cocktails. Add cup and liter units to support.
 4. **Secure backend data access** — Devise an authentication method to restrict access to add/edit pages, and secure data fetch methods in preparation for API deployment.
 4. **Replace the in-memory data source with a real API** — Likely will be a PHP REST API. Add loading/error states where needed.
 5. **Create a bulk upload page** — Build out a page that parses a csv file of cocktail recipes, and uploads the recipes to the database, conditionally creating the unknown ingredients.
-6. **React Native update** — Enable and validate for React Native.
-7. **Accessibility pass** — audit the custom `UnitSelect` and search toggle for keyboard navigation and screen-reader labeling now that there's more interactive UI per row.
-8. **Tests** — no test setup exists yet; start with unit tests for `unitUtils.js` (conversion math and fraction rounding are the highest-value, easiest-to-break logic in the app).
-9. **Clone for iOS** — Replicate app in Swift.
+
+Additional roadmap items (in no particular order):
+- **Typescript update**
+- **React Native update**
+- **Accessibility pass** — audit the custom `UnitSelect` and search toggle for keyboard navigation and screen-reader labeling now that there's more interactive UI per row.
+- **Tests** — no test setup exists yet; start with unit tests for `unitUtils.js` (conversion math and fraction rounding are the highest-value, easiest-to-break logic in the app).
+- **Clone for iOS** — Replicate app in Swift.
 
 ## Copyright and Licensing
 

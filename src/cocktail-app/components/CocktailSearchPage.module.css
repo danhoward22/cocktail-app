@@ -1,8 +1,48 @@
 .page {
   max-width: 720px;
-  margin: 0 auto;
-  padding: 3rem 1.5rem 6rem;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
+  margin: 0 auto;
+  /*100% - main and navbar padding - navbar line height*/
+  height: calc(100vh - 3.8rem - 24px);
+}
+
+.searchControls {
+  display: flex;
+  flex-direction: row;
+  flex: 0;
+  gap:.5rem;
+}
+
+.loading {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  background: var(--color-surface);
+}
+
+.loadingText {
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loading {
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }

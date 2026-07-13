@@ -21,6 +21,7 @@ export function useCocktail(){
         })
       } catch (error) {
         console.error("Error fetching data:", error);
+        setCocktail(null)
       }
     };
 

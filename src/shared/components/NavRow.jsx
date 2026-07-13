@@ -7,7 +7,7 @@ export function NavRow({ index, style, items, renderItem, customStyles, pathPref
   const isActive = location.pathname === path;
 
   return (
-    <div style={style} className={customStyles.row}>
+    <div style={style}>
       <Link
         to={path} 
         className={`${customStyles.link} nav-item ${isActive ? 'active' : ''}`}

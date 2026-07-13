@@ -36,8 +36,11 @@
   -moz-osx-font-smoothing: grayscale;
 
   width: auto;
+  height: inherit;
 }
-
+#root {
+  height:100vh;
+}
 *,
 *::before,
 *::after {

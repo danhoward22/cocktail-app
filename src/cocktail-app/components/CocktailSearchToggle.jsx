@@ -4,7 +4,6 @@ export function CocktailSearchToggle({searchBy, setSearchBy}) {
 
   return (
     <div className={styles.toggle}>
-      <p className={styles.label}>Search By: </p>
       <label className={styles.option}>
         <input
           type="radio"

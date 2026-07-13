@@ -1,11 +1,14 @@
-import { Link } from "react-router"
+import { Outlet } from "react-router"
 import styles from "./CocktailApp.module.css"
+import { Navbar } from "./NavBar"
 
 export function CocktailApp() {
   return (
-    <div className={styles.hero}>
-      <h1 className={styles.title}>Cocktail App Home Page</h1>
-      <Link className={styles.cta} to="/cocktails">Search Cocktails</Link>
+    <div className={styles.appContainer}>
+      <Navbar styles={styles}/>
+      <main>
+        <Outlet/>
+      </main>
     </div>
   )
 }
