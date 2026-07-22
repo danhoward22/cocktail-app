@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { useCocktail } from "../hooks/useCocktail"
+import { useCocktail } from "../../hooks/useCocktail"
 import { Cocktail } from "./Cocktail"
 import styles from "./CocktailPage.module.css"
 

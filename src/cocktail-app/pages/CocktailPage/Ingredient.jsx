@@ -1,10 +1,10 @@
-import { UnitSelect } from "./UnitSelect"
-import { useMeasure } from "../hooks/useMeasure"
+import { UnitSelect } from "../../components/ui/UnitSelect"
+import { useMeasure } from "../../hooks/useMeasure"
 import styles from "./Ingredient.module.css"
 
 export function Ingredient({ingredient}){
     const [quantity, units, setUnits] = useMeasure(ingredient.qty,ingredient.units)
-    const handleUnitChage = (event) => {
+    const handleUnitChange = (event) => {
         setUnits(event.target.value)
     }
 
@@ -14,7 +14,7 @@ export function Ingredient({ingredient}){
             <span className={styles.measure}>
                 {quantity}
                 {units ?
-                    <UnitSelect value={units} onChange={handleUnitChage}/>
+                    <UnitSelect value={units} onChange={handleUnitChange}/>
                     : <span>piece{quantity>1 && "s"}</span>
                 }
             </span>

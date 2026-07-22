@@ -1,11 +1,11 @@
-export function getLocalStorage(key, defaultValue) {
+export function getLocalStorage(key) {
   try {
     const saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : defaultValue;
+    return saved ? JSON.parse(saved) : null;
   } catch (error) {
     console.error(`Error reading localStorage key "${key}":`, error);
-    return defaultValue;
   }
+  return null
 }
 
 export function setLocalStorage(key, value) {

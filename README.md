@@ -8,7 +8,11 @@ A React app for browsing classic cocktail recipes: search by name or by ingredie
 - **react-router** — routing, data loading (`loader`), and nested routes
 - **react-window** — virtualized list rendering for the search results
 - **fraction.js** — converts decimal quantities to clean fractions (e.g. `0.5 oz` → `½ oz`)
-- **CSS Modules** — scoped, component-level styling (no CSS-in-JS, no inline styles)
+- **downshift** — filterable async select elements
+- **react-hook-form** — form validation
+- **zod** — form validation schema
+
+
 
 ## Getting started
 
@@ -29,16 +33,22 @@ npm run lint     # run ESLint
 
 ```
 src/
+  assets/
+    index.css         # design tokens (colors, type, spacing) + global resets
   cocktail-app/
-    components/     # Cocktail search, list, recipe card, ingredient row, unit select, search toggle, search bar
-    hooks/           # useCocktail, useCocktailList, useSearchBy, useMeasure
-    utils/           # cocktail data, fetch/filter helpers, unit conversion
+    components/       # Shared cocktail app components
+      ui/             # UI primitives
+    data/             # Mock data files
+    hooks/            # useCocktail, useCocktailList, useSearchBy, useMeasure
+    pages/            # Cocktail app pages and subcomponents organized into page specific subfolders
+    services/
+      cocktailApi/    # Real and mock API fetch functions
+    utils/            # cocktail helpers, unit conversion
   shared/
-    components/      # VirtualNavList, NavRow — generic virtualized nav list
+    components/       # VirtualNavList, NavRow — generic virtualized nav list
     hooks/            # useDeferredQuery
     utils/            # arrayUtils
-  index.css           # design tokens (colors, type, spacing) + global resets
-  main.jsx            # router setup
+  App.jsx             # router setup
 ```
 
 Each component that needs styling has a co-located `Component.module.css` file, imported directly into its `.jsx` file. Shared design tokens (colors, fonts, radii) live as CSS custom properties in `src/index.css` and are referenced from every module.
@@ -50,7 +60,7 @@ Each component that needs styling has a co-located `Component.module.css` file, 
 | `/`                            | Home page                                      |
 | `/cocktails`                   | Search page (loads the full cocktail list)     |
 | `/cocktails/:cocktailId`       | Recipe detail, nested inside the search page   |
-| `/cocktails/new-cocktail`      | Placeholder                                    |
+| `/cocktails/new-cocktail`      | Add new coctail form (incomplete)              |
 | `/cocktails/new-ingredient`    | Placeholder                                    |
 
 ## Data
@@ -67,7 +77,7 @@ Each `Ingredient` row uses the `useMeasure` hook to keep its own local unit stat
 
 ## Development roadmap
 
-1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out real forms to save cocktails and ingredients to `localStorage`.
+1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out forms to save cocktails and ingredients to `localStorage`.
 2. **Add "Edit Cocktail" and "Edit Ingredient" functionality** — Utilize the Add Cocktail and Ingredient forms to enable edit capabilities to existing custom recipes.
 3. **Quantity multiplier** — Create a recipe multiplier field to to scale up volumes for batch cocktails. Add cup and liter units to support.
 4. **Secure backend data access** — Devise an authentication method to restrict access to add/edit pages, and secure data fetch methods in preparation for API deployment.

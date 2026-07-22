@@ -1,4 +1,4 @@
-import { VirtualNavList } from '../../shared/components/VirtualNavList'
+import { VirtualNavList } from '/src/shared/components/VirtualNavList'
 import styles from './CocktailList.module.css'
 
 export function CocktailList({cocktails}) {

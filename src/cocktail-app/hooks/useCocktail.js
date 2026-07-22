@@ -1,6 +1,6 @@
 import { useEffect, useState, useTransition } from "react";
 import { useParams } from "react-router";
-import { fetchCocktail } from "../utils/cocktailUtils";
+import { fetchCocktail } from "../services/cocktailApi";
 
 export function useCocktail(){
   const {cocktailId} = useParams()

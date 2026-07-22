@@ -4,10 +4,10 @@ import { CocktailSearchToggle } from "./CocktailSearchToggle"
 import { CocktailSearchBar } from "./CocktailSearchBar"
 import { CocktailList } from "./CocktailList"
 
-import { useDeferredQuery } from "../../shared/hooks/useDeferredQuery"
-import { useSearchBy } from "../hooks/useSearchBy"
+import { useDeferredQuery } from "/src/shared/hooks/useDeferredQuery"
+import { useSearchBy } from "../../hooks/useSearchBy"
 
-import { filterCocktails } from "../utils/cocktailUtils"
+import { filterCocktails } from "../../utils/cocktailUtils"
 
 import styles from "./CocktailSearchPage.module.css"
 

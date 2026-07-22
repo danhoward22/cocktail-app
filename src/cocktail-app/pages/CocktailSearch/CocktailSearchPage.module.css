@@ -6,7 +6,7 @@
   gap: 1rem;
   margin: 0 auto;
   /*100% - main and navbar padding - navbar line height*/
-  height: calc(100vh - 3.8rem - 24px);
+  height: calc(100vh - 2.55rem - 24px);
 }
 
 .searchControls {

@@ -1,8 +1,8 @@
 import { Outlet } from "react-router"
-import styles from "./CocktailApp.module.css"
-import { Navbar } from "./NavBar"
+import styles from "./CocktailAppFrame.module.css"
+import { Navbar } from "./ui/NavBar"
 
-export function CocktailApp() {
+export function CocktailAppFrame() {
   return (
     <div className={styles.appContainer}>
       <Navbar styles={styles}/>

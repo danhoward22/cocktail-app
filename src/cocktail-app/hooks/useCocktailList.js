@@ -1,5 +1,5 @@
 import { useState, useTransition } from "react";
-import { fetchCocktailList } from "../utils/cocktailUtils";
+import { fetchCocktailList } from "../services/cocktailApi";
 
 export function useCocktailList(){
   const [cocktailList, setCocktailList] = useState(null)
