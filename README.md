@@ -41,9 +41,11 @@ src/
     data/             # Mock data files
     hooks/            # useCocktail, useCocktailList, useSearchBy, useMeasure
     pages/            # Cocktail app pages and subcomponents organized into page specific subfolders
+    schemas/          # Zod schemas
     services/
       cocktailApi/    # Real and mock API fetch functions
-    utils/            # cocktail helpers, unit conversion
+    utils/            # Cocktail helpers, unit conversion
+    loaders/          # Page data loaders
   shared/
     components/       # VirtualNavList, NavRow — generic virtualized nav list
     hooks/            # useDeferredQuery
@@ -60,12 +62,12 @@ Each component that needs styling has a co-located `Component.module.css` file, 
 | `/`                            | Home page                                      |
 | `/cocktails`                   | Search page (loads the full cocktail list)     |
 | `/cocktails/:cocktailId`       | Recipe detail, nested inside the search page   |
-| `/cocktails/new-cocktail`      | Add new coctail form (incomplete)              |
+| `/cocktails/new-cocktail`      | Add new coctail form (IN PROGRESS)             |
 | `/cocktails/new-ingredient`    | Placeholder                                    |
 
 ## Data
 
-Cocktail data currently initializes in `src/cocktail-app/utils/cocktailUtils.js` as localStorage arrays, with `fetchCocktailList` and `fetchCocktail` simulating database queries and network latency.
+Cocktail data currently initializes in `src/cocktail-app/services/cocktailApi` with an index file to toggle mock and real API sources.
 
 Each ingredient carries a base `qty` and `units` (`oz`, `tbsp`, `tsp`, `mL`, `dash`, `drops`, or none for countable items like mint leaves). Garnishes are now objects (`{id, name, qty}`) rather than plain strings, so a garnish can have its own count (e.g. two cherries).
 
@@ -77,7 +79,7 @@ Each `Ingredient` row uses the `useMeasure` hook to keep its own local unit stat
 
 ## Development roadmap
 
-1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out forms to save cocktails and ingredients to `localStorage`.
+1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out forms to save cocktails and ingredients to `localStorage`. - IN PROGRESS
 2. **Add "Edit Cocktail" and "Edit Ingredient" functionality** — Utilize the Add Cocktail and Ingredient forms to enable edit capabilities to existing custom recipes.
 3. **Quantity multiplier** — Create a recipe multiplier field to to scale up volumes for batch cocktails. Add cup and liter units to support.
 4. **Secure backend data access** — Devise an authentication method to restrict access to add/edit pages, and secure data fetch methods in preparation for API deployment.

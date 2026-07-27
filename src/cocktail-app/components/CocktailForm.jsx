@@ -1,27 +1,89 @@
-import { useState } from "react"
-import { IngredientInput } from "../pages/AddCocktail/IngredientInput"
-import { getDefaultIngredient } from "../utils/cocktailUtils"
+import { IngredientInput } from "./IngredientInput"
+import ClickButton from "/src/shared/components/ui/ClickButton"
+import SubmitButton from "/src/shared/components/ui/SubmitButton"
+import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
+import { useCocktailForm } from "../hooks/useCocktailForm"
 import styles from "./CocktailForm.module.css"
 
+
 export function CocktailForm({cocktail}){
-    const [name, setName] = useState(cocktail.name)
-    const [ingredientList, setIngredientList] = useState(cocktail.ingredients)
+
+    const {
+        control,
+        register,
+        handleSubmit,
+        //setError,
+        ingredientFieldArray,
+        garnishFieldArray,
+        formState: {errors,isSubmitting}
+    } = useCocktailForm(cocktail)
+
+    const onSubmit = async (data) => {
+        console.log(data)
+        // try{
+        //     await new Promise((resolve) => setTimeout(resolve, 1000))
+        //     throw new Error()
+        //     console.log(data)
+        // }catch(e){
+        //     setError("email", {message: "this email is already taken"})
+        //     setError("root", {message: "Submit failed!"})
+        // }
+    }
     
     return(
-        <div className={styles.card}>
-            <div className={styles.header}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.name}>
                 <label>Name</label>
-                <input type="text" className={styles.name} value={name} onChange={(e)=>setName(e.target.value)}/>
+                <input type="text" {...register("name")} />
+                <ErrorMessage className={styles.error} error={errors.name} />
             </div>
-            <ul className={styles.ingredients}>
-                {ingredientList.map((ingredient)=> <IngredientInput key={ingredient.id} ingredient={ingredient} />)}
-                <IngredientInput key="0" ingredient={getDefaultIngredient()} />
-            </ul>
-            <ul className={styles.garnishes}>
-                {/*To Do: Garnishes*/}
-            </ul>
-            {cocktail.notes && <p className={styles.notes}>{cocktail.notes}</p>}
-            {cocktail.source && <p className={styles.source}>Source: {cocktail.source}</p>}
-        </div>
+            <div className={styles.ingredients}>
+                <label>Ingredients</label>
+                <ul>
+                    {ingredientFieldArray.fields.map((field, index) => 
+                        <IngredientInput key={field.id} index={index} register={register} control={control} remove={ingredientFieldArray.remove} errors={errors.ingredients?.[index]} /> 
+                    )}
+                </ul>
+                <ClickButton execute={ingredientFieldArray.append}>Add Ingredient</ClickButton>
+            </div>
+            <div className={styles.garnishes}>
+                <label>Garnishes</label>
+                <ul>
+                    {garnishFieldArray.fields.map((field, index) => 
+                        <IngredientInput key={field.id} index={index} register={register} control={control} remove={garnishFieldArray.remove} errors={errors.garnishes?.[index]} isGarnish={true} />
+                    )}
+                </ul>
+                <ClickButton execute={garnishFieldArray.append}>Add Garnish</ClickButton>
+            </div>
+            <div className={styles.notes}>
+                <label>Notes</label>
+                <textarea {...register("notes")} placeholder="Enter instructions here..." />
+                <ErrorMessage className={styles.error} error={errors.notes} />
+            </div>
+            <div className={styles.source}>
+                <label>Source</label>
+                <input {...register("source")} type="text" placeholder="book title, bartender, etc." />
+                <ErrorMessage className={styles.error} error={errors.source} />
+            </div>
+            <SubmitButton isSubmitting={isSubmitting}/>
+            <ErrorMessage className={styles.error} error={errors.root} />
+        </form>
     )
 }
+
+// function FieldArray() {
+//   const { control, register } = useForm();
+//   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+//     control, // control props comes from useForm (optional: if you are using FormProvider)
+//     name: "test", // unique name for your Field Array
+//   });
+
+//   return (
+    // {fields.map((field, index) => (
+    //   <input
+    //     key={field.id} // important to include key with field's id
+    //     {...register(`test.${index}.value`)}
+    //   />
+    // ))}
+//   );
+// }

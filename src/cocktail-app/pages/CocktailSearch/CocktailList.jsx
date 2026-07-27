@@ -1,7 +1,10 @@
+import { use } from 'react'
 import { VirtualNavList } from '/src/shared/components/VirtualNavList'
 import styles from './CocktailList.module.css'
 
-export function CocktailList({cocktails}) {
+export function CocktailList({cocktailsPromise}) {
+  const cocktails = use(cocktailsPromise)
+  
   if(cocktails.length===0){
     return (
       <div className={styles.empty}>No cocktails found</div>

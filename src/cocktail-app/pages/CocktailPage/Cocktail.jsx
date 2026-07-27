@@ -1,10 +1,21 @@
-import { useRef, useState } from "react"
+import { useRef, useState, use } from "react"
 import { Link } from "react-router"
-import styles from "./Cocktail.module.css"
+
 import { Garnishes } from "./Garnishes"
 import { Ingredient } from "./Ingredient"
 
-export function Cocktail({cocktail}){
+import styles from "./Cocktail.module.css"
+
+export function Cocktail({cocktailPromise}){
+    const cocktail = use(cocktailPromise)
+
+    if(!cocktail){ return(
+        <div className={styles.card}>
+            <p>Cocktail not found</p>
+            <Link to='/cocktails' className={styles.close}>Close</Link>
+        </div>
+    )}
+
     const [isScrolled, setIsScrolled] = useState(false)
     const cardRef = useRef(null)
 

@@ -48,3 +48,17 @@ export function getClosestFraction(decimalValue) {
 
     return bestFraction.toFraction(true);
 }
+
+export function isValidQuantity(input){
+  try {
+    const f = new Fraction(input);
+    // Check for division by zero (e.g., if denominator is 0)
+    if (f.d === 0) return false;
+    // Check if value is negative or 0
+    if (f.valueOf() <= 0) return false
+    
+    return true; 
+  } catch (e) {
+    return false;
+  }
+}

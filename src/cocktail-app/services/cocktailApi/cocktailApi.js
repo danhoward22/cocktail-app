@@ -38,3 +38,7 @@ export async function fetchFilteredIngredients(inputValue){
 //  set inputValue filter string
 //   return response.json();
 }
+
+export async function fetchIngredient(ingredientId){}
+
+export async function saveCocktail(data){}

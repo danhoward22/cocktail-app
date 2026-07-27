@@ -1,25 +1,20 @@
-import { Link } from "react-router"
-import { useCocktail } from "../../hooks/useCocktail"
+import { Link, useLoaderData } from "react-router"
 import { Cocktail } from "./Cocktail"
 import styles from "./CocktailPage.module.css"
+import { Suspense } from "react"
 
 export function CocktailPage() {
-  const [cocktail, isPending] = useCocktail()
+  const {cocktailPromise} = useLoaderData()
 
   return (
     <div className={styles.page}>
-      {isPending ? 
+      <Suspense fallback={
         <div className={styles.loading}>
-          <p className={styles.loadingText}>⌛ Loading...</p>
+          <p className={styles.loadingText}>⌛ Loading Cocktail...</p>
         </div>
-        : (cocktail ?
-          <Cocktail cocktail={cocktail}/>
-          : <div className={styles.loading}>
-            <p className={styles.loadingText}>Cocktail not found</p>
-            <Link to='/cocktails' className={styles.close}>Close</Link>
-          </div>
-        )
-      }
+      }>
+        <Cocktail cocktailPromise={cocktailPromise}/>
+      </Suspense>
     </div>
   )
 }

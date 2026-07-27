@@ -1,41 +1,24 @@
-import { useEffect, useState } from "react"
-// import AsyncSelect from "react-select/async"
-import { UnitSelect } from "./ui/UnitSelect"
-import { fetchFilteredIngredients } from "../services/cocktailApi"
+import { Controller } from "react-hook-form"
+import { IngredientCombobox } from "./IngredientCombobox"
+import { MeasureInput } from "./MeasureInput"
+import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
+
 import styles from "./IngredientInput.module.css"
 
-export function IngredientInput({ingredient}){
-    const [cocktailId, setCocktailId] = useState(ingredient.id)
-    const [qty, setQty] = useState(ingredient.qty==0 ? "" : ingredient.qty)
-    const [units, setUnits] = useState(ingredient.units)
-
-    const handleQtyChange = (e) => {
-        setQty(e.target.value)
-        if(isNaN(e.target.value)) e.target.className = `${styles.qty} ${styles.error}`
-        else e.target.className = styles.qty
-    }
+export function IngredientInput({index, register, control, remove, errors, isGarnish=false}){
+    const fieldIndex = `${isGarnish ? "garnishes" : "ingredients"}.${index}`
 
     return (
         <li className={styles.ingredient}>
             <span className={styles.name}>
-                <label>Ingredient</label>
-                {/* {<AsyncSelect
-                    cacheOptions
-                    defaultOptions
-                    loadOptions={fetchFilteredIngredients}
-                    isSearchable={true}
-                    isClearable={true}
-                    placeholder="Type to filter..."
-                    styles={styles}
-                    defaultValue={ingredient.id > 0 ? {value: ingredient.id, label:ingredient.name} : null}
-                    onChange={(e)=>{e ? setCocktailId(e.value) : setCocktailId(null)}}
-                />} */}
+                <Controller name={`${fieldIndex}.id`} control={control}
+                    render={({field: {onChange, value}, fieldState:{error}})=>(
+                        <IngredientCombobox value={value ?? ""} onChange={onChange} error={error}/>
+                    )}
+                />
             </span>
-            <span className={styles.measure}>
-                <label>Qty</label>
-                <input type="text" className={styles.qty} value={qty} onChange={handleQtyChange}/>
-                <UnitSelect value={units} onChange={(e)=>{setUnits(e.target.value)}} isInput={true}/>
-            </span>
+            <MeasureInput fieldIndex={fieldIndex} isGarnish={isGarnish} register={register} errors={errors}/> 
+            <button type="button" onClick={()=>{remove(fieldIndex)}}>Remove</button>
         </li>
     )
 }
@@ -45,4 +28,91 @@ export function IngredientInput({ingredient}){
 //     parents: [],
 //     qty: 0,
 //     units: ""
+// }
+
+
+// import { Controller } from 'react-hook-form';
+// import { useSelect } from 'downshift';
+
+// function CustomThreeInputRow({ index, register, control, onRemove }) {
+//   const items = ['Admin', 'Editor', 'Viewer']; // Example selection options
+
+//   return (
+//     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+      
+//       {/* Input 1: Native HTML */}
+//       <input 
+//         {...register(`items.${index}.firstName`)} 
+//         placeholder="First Name" 
+//       />
+
+//       {/* Input 2: Native HTML */}
+//       <input 
+//         {...register(`items.${index}.lastName`)} 
+//         placeholder="Last Name" 
+//       />
+
+//       {/* Input 3: Controlled Custom Downshift Select List */}
+//       <Controller
+//         name={`items.${index}.role`}
+//         control={control}
+//         render={({ field: { onChange, value } }) => {
+//           // Initialize Downshift inside the Controller render scope
+//           const {
+//             isOpen,
+//             getToggleButtonProps,
+//             getMenuProps,
+//             getItemProps,
+//             highlightedIndex,
+//           } = useSelect({
+//             items,
+//             selectedItem: value || null,
+//             // Crucial: Update React Hook Form when a selection happens
+//             onSelectedItemChange: ({ selectedItem }) => {
+//               onChange(selectedItem);
+//             },
+//           });
+
+//           return (
+//             <div style={{ position: 'relative', width: '150px' }}>
+//               {/* Trigger Button */}
+//               <button type="button" {...getToggleButtonProps()}>
+//                 {value || 'Select Role'}
+//               </button>
+
+//               {/* Selection Menu */}
+//               <ul {...getMenuProps()} style={{ 
+//                 display: isOpen ? 'block' : 'none', 
+//                 position: 'absolute', 
+//                 backgroundColor: 'white',
+//                 border: '1px solid #ccc',
+//                 listStyle: 'none',
+//                 padding: 0,
+//                 margin: 0,
+//                 width: '100%',
+//                 zIndex: 10
+//               }}>
+//                 {isOpen &&
+//                   items.map((item, itemIndex) => (
+//                     <li
+//                       style={{
+//                         backgroundColor: highlightedIndex === itemIndex ? '#bde4ff' : 'white',
+//                         padding: '4px 8px',
+//                         cursor: 'pointer',
+//                       }}
+//                       key={`${item}${itemIndex}`}
+//                       {...getItemProps({ item, index: itemIndex })}
+//                     >
+//                       {item}
+//                     </li>
+//                   ))}
+//               </ul>
+//             </div>
+//           );
+//         }}
+//       />
+
+//       <button type="button" onClick={onRemove}>Delete Row</button>
+//     </div>
+//   );
 // }

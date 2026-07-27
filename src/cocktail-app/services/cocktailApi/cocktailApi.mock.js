@@ -1,5 +1,6 @@
+import { arrayContainsSubstring } from "../../../shared/utils/arrayUtils"
 import { drinkData, ingredientData, drinkIngredientData } from "../../data/mockData"
-import { getLocalStorage } from "../../../shared/utils/localStorageUtils"
+import { getLocalStorage } from "/src/shared/utils/localStorageUtils"
 
 function getParentIngredientNames(ingredientMap, targetId){
   const parentNames = []
@@ -133,20 +134,27 @@ export async function fetchCocktail(id){
   return null
 }
 
-function filterIngredients(inputValue) {
+export async function fetchFilteredIngredients(inputValue){
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const options = []
-  ingredientData.forEach((i) => {
-    if(i.name.toLowerCase().includes(inputValue.toLowerCase())){
-      options.push({value: i.id, label: i.name})
+  let i = 0
+  
+  ingredientData.forEach((ingredient) => {
+    const parents = ingredient.parent_id ? getParentIngredientNames(ingredientData, ingredient.parent_id) : []
+    if(i < 200 && arrayContainsSubstring([...parents, ingredient.name],inputValue)){
+      options.push(ingredient)
+      i++
     }
   })
+
   return options
 }
 
-export async function fetchFilteredIngredients(inputValue){
-    return (new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(filterIngredients(inputValue));
-      }, 1000);
-    }))
+export async function fetchIngredient(ingredientId){
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return ingredientData.get(parseInt(ingredientId))
+}
+
+export async function saveCocktail(formData){
+
 }

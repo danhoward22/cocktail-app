@@ -6,8 +6,8 @@ import { CocktailSearchPage } from './cocktail-app/pages/CocktailSearch/Cocktail
 import {CocktailPage} from './cocktail-app/pages/CocktailPage/CocktailPage.jsx'
 import { AddCocktailPage } from './cocktail-app/pages/AddCocktail/AddCocktailPage.jsx'
 import { NotFoundPage } from './NotFoundPage.jsx'
-import { CocktailSearchSkeleton } from './cocktail-app/pages/CocktailSearch/CocktailSearchSkeleton.jsx'
-import { fetchCocktailList } from './cocktail-app/services/cocktailApi'
+import { cocktailLoader } from './loaders/cocktailLoader.js'
+import { cocktailListLoader } from './loaders/cocktailListLoader.js'
 
 const router = createBrowserRouter([
   {
@@ -22,12 +22,12 @@ const router = createBrowserRouter([
       {
         path:"/cocktails",
         element: <CocktailSearchPage/>,
-        loader: fetchCocktailList,
-        hydrateFallbackElement:<CocktailSearchSkeleton/>,
+        loader: cocktailListLoader,
         children: [
           {
             path:"/cocktails/:cocktailId",
-            element: <CocktailPage/>
+            element: <CocktailPage/>,
+            loader: cocktailLoader,
           },
         ]
       },

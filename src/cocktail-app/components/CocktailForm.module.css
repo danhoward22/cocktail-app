@@ -1,4 +1,4 @@
-.card {
+.form {
   max-width: 720px;
   min-width: 320px;
   background: var(--color-surface);
@@ -24,11 +24,6 @@
   transition: padding 0.3s ease;
 }
 
-.sticky {
-  padding: 1.25rem 0 1rem;
-  border-bottom: 1px solid var(--color-line);
-}
-
 .name {
   flex:1;
   font-family: var(--font-display);
@@ -38,30 +33,14 @@
   transition: font-size 0.3s ease;
 }
 
-.sticky .name {
-  font-size: 1.5rem;
-}
-
-.close {
-  font-family: var(--font-mono);
-  color: var(--color-text-dim);
-  font-size: .75rem;
-}
-
-.ingredients {
+.ingredients,
+.garnishes {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
   margin: 0 0 1.5rem;
   padding: 0;
-}
-
-.garnish {
-  list-style: none;
-  font-family: var(--font-body);
-  color: var(--color-verdant);
-  padding-top: 0.15rem;
 }
 
 .notes {
@@ -81,3 +60,4 @@
   padding-top: 1rem;
   margin: 0;
 }
+.error{color:red;}

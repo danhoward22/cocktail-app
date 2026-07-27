@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorageUtils';
 
-export function useLocalStorage(key, defaultValue) {
+export function useLocalStorage(key) {
     const [value, setValue] = useState(() => {
-        return getLocalStorage(key,defaultValue)
+        return getLocalStorage(key)
     });
 
     useEffect(() => {
