@@ -1,4 +1,4 @@
-import { Suspense, useMemo } from "react"
+import { Suspense } from "react"
 import { Outlet, useLoaderData } from "react-router"
 
 import { CocktailSearchToggle } from "./CocktailSearchToggle"

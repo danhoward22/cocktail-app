@@ -22,7 +22,7 @@ export function useIngredientCombobox({initialId, onChange}){
         selectedItem,
         onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
           setSelectedItem(newSelectedItem || null)
-          onChange(newSelectedItem?.id || null)
+          onChange(newSelectedItem?.id || 0)
         },
         onStateChange: ({ type }) => {
           if (

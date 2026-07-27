@@ -1,7 +1,6 @@
 import { Controller } from "react-hook-form"
 import { IngredientCombobox } from "./IngredientCombobox"
 import { MeasureInput } from "./MeasureInput"
-import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
 
 import styles from "./IngredientInput.module.css"
 
@@ -12,13 +11,13 @@ export function IngredientInput({index, register, control, remove, errors, isGar
         <li className={styles.ingredient}>
             <span className={styles.name}>
                 <Controller name={`${fieldIndex}.id`} control={control}
-                    render={({field: {onChange, value}, fieldState:{error}})=>(
-                        <IngredientCombobox value={value ?? ""} onChange={onChange} error={error}/>
-                    )}
+                    render={({field: {onChange, value}, fieldState:{error}})=>{
+                        return <IngredientCombobox value={value ?? ""} onChange={onChange} error={error}/>
+                    }}
                 />
             </span>
             <MeasureInput fieldIndex={fieldIndex} isGarnish={isGarnish} register={register} errors={errors}/> 
-            <button type="button" onClick={()=>{remove(fieldIndex)}}>Remove</button>
+            <button type="button" onClick={()=>{remove(index)}}>Remove</button>
         </li>
     )
 }

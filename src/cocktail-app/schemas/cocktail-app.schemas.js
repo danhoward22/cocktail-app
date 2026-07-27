@@ -2,38 +2,38 @@ import {z} from "zod";
 import { units, isValidQuantity } from "../utils/unitUtils";
 
 export const cocktailSchema = z.object({
-    name: z.string().min(1).max(255),
+    name: z.string().min(1, "Enter a cocktail name").max(255, "Name is too long (255 max characters)"),
     source: z.string().max(255),
     notes: z.string().max(1000),
     ingredients: z.array(
         z.object({
             id: z.number().min(1, "Select an ingredient"),
-            qty: z.string(),
+            qty: z.string().min(1,"Enter a quantity").refine(
+                (val) => isValidQuantity(val),
+                { message: "Quantity must be a positive decimal or fraction." }
+            ),
             units: z.enum([...units, ""]),
-        }).refine(
-            (data) => isValidQuantity(data.qty),
-            {
-                message: "Quantity must be a positive decimal or fraction.",
-                path:["qty"]
-            }
-        )
-    ).min(1, 'Add at least one ingredient'),
+        })
+    ).min(1, 'Add ingredients').refine(
+        (rows) => new Set(rows.map((row)=>row.id)).size === rows.length,
+        { message: "Cannot have duplicate ingredients" }
+    ),
     garnishes: z.array(
         z.object({
-            //id: z.number().min(1),
-            qty: z.string(),
-        }).refine(
-            (data) => isValidQuantity(data.qty),
-            {
-                message: "Quantity must be a positive decimal or fraction.",
-                path:["qty"]
-            }
-        )
+            id: z.number().min(1, "Select a garnish"),
+            qty: z.string().min(1,"Enter a quantity").refine(
+                (val) => isValidQuantity(val),
+                { message: "Quantity must be a positive decimal or fraction." }
+            ),
+        })
+    ).refine(
+        (rows) => new Set(rows.map((row)=>row.id)).size === rows.length,
+        { message: "Cannot have duplicate garnishes" }
     ),
 });
 
 
-
+//.union([z.number().min(1,"num error"), z.string().min(1,emptyQty)])
 // const formSchema = z
 //   .object({
 //     type: z.enum(["Private", "Business"]),

@@ -7,7 +7,9 @@ export function CocktailList({cocktailsPromise}) {
   
   if(cocktails.length===0){
     return (
-      <div className={styles.empty}>No cocktails found</div>
+      <div className={styles.list}>
+        <div className={styles.empty}>No cocktails found</div>
+      </div>
     )
   }
 

@@ -6,5 +6,5 @@ export function useFilteredCocktailsPromise(cocktailsPromise, query, searchBy){
         return cocktailsPromise.then((cocktails)=>{
             return filterCocktails(cocktails, query, searchBy)
         })
-    })
+    },[query, cocktailsPromise, searchBy])
 }

@@ -18,7 +18,7 @@ export function useCocktailForm(cocktail){
     const form = useForm({
         resolver:zodResolver(cocktailSchema),
         defaultValues:{
-            ingredients: [{id:3, qty:2, units:"oz"}],//defaultIngredients,
+            ingredients: [{id:3, qty:"2", units:"oz"}],//defaultIngredients,
             garnishes: defaultGarnishes,
         },
     })
@@ -27,12 +27,10 @@ export function useCocktailForm(cocktail){
     const ingredientFieldArray = useFieldArray({
         control: form.control,
         name: "ingredients",
-        shouldUnregister: true,
     });
     const garnishFieldArray = useFieldArray({
         control: form.control,
         name: "garnishes",
-        shouldUnregister:true,
     });
 
     return {...form, ingredientFieldArray, garnishFieldArray }
