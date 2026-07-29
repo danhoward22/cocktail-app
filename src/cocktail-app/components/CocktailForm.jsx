@@ -3,6 +3,8 @@ import SubmitButton from "/src/shared/components/ui/SubmitButton"
 import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
 import { useCocktailForm } from "../hooks/useCocktailForm"
 import styles from "./CocktailForm.module.css"
+import { fractionToDecimal } from "../utils/unitUtils"
+import { saveCocktail } from "../services/cocktailApi"
 
 
 export function CocktailForm({cocktail}){
@@ -11,7 +13,7 @@ export function CocktailForm({cocktail}){
         control,
         register,
         handleSubmit,
-        //setError,
+        setError,
         ingredientFieldArray,
         garnishFieldArray,
         formState: {errors,isSubmitting}
@@ -19,22 +21,37 @@ export function CocktailForm({cocktail}){
 
     const onSubmit = async (data) => {
         console.log(data)
-        // try{
-        //     await new Promise((resolve) => setTimeout(resolve, 1000))
-        //     throw new Error()
-        //     console.log(data)
-        // }catch(e){
-        //     setError("email", {message: "this email is already taken"})
-        //     setError("root", {message: "Submit failed!"})
-        // }
+        try{
+            //to do: remove whitespace
+            const newCocktail = {
+                name: data.cocktailName,
+                notes: data.notes,
+                source: data.source,
+                ingredients: data.ingredients.map(i => {
+                    return { id:i.id, qty:fractionToDecimal(i.qty), units:i.units }
+                }),
+                garnishes: data.garnishes.map(g => {
+                    return { id:g.id, qty:fractionToDecimal(g.qty) }
+                })
+            }
+            await saveCocktail(newCocktail)
+        }catch(e){
+            setError("root", {message: "Submit failed!"})
+            console.error(e)
+        }
     }
     
     return(
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.name}>
-                <label>Name</label>
-                <input type="text" {...register("name")} />
-                <ErrorMessage className={styles.error} error={errors.name} />
+                <label>Cocktail Name</label>
+                <input type="text" {...register("cocktailName")} />
+                <ErrorMessage className={styles.error} error={errors.cocktailName} />
+            </div>
+            <div className={styles.source}>
+                <label>Source</label>
+                <input {...register("source")} type="text" placeholder="book title, bartender, etc." />
+                <ErrorMessage className={styles.error} error={errors.source} />
             </div>
             <div className={styles.ingredients}>
                 <label>Ingredients</label>
@@ -61,30 +78,8 @@ export function CocktailForm({cocktail}){
                 <textarea {...register("notes")} placeholder="Enter instructions here..." />
                 <ErrorMessage className={styles.error} error={errors.notes} />
             </div>
-            <div className={styles.source}>
-                <label>Source</label>
-                <input {...register("source")} type="text" placeholder="book title, bartender, etc." />
-                <ErrorMessage className={styles.error} error={errors.source} />
-            </div>
             <SubmitButton isSubmitting={isSubmitting}/>
             <ErrorMessage className={styles.error} error={errors.root} />
         </form>
     )
 }
-
-// function FieldArray() {
-//   const { control, register } = useForm();
-//   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
-//     control, // control props comes from useForm (optional: if you are using FormProvider)
-//     name: "test", // unique name for your Field Array
-//   });
-
-//   return (
-    // {fields.map((field, index) => (
-    //   <input
-    //     key={field.id} // important to include key with field's id
-    //     {...register(`test.${index}.value`)}
-    //   />
-    // ))}
-//   );
-// }

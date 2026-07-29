@@ -31,9 +31,6 @@ export function useIngredientCombobox({initialId, onChange}){
           ) {
             isSelectingRef.current = true
           }
-          // if(type===useCombobox.stateChangeTypes.InputBlur){
-          //   setInputValue(selectedItem?.name || "")
-          // }
         },
     })
 
@@ -62,10 +59,10 @@ export function useIngredientCombobox({initialId, onChange}){
     },[initialId])
 
     useEffect(() => {
-      // if (isSelectingRef.current) {
-      //   isSelectingRef.current = false // Reset the flag
-      //   return
-      // }
+      if (isSelectingRef.current) {
+        isSelectingRef.current = false
+        return
+      }
       if (!inputValue) {
         setItems([])
         setLoading(false)

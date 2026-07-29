@@ -1,4 +1,5 @@
 import Fraction from "fraction.js"
+import { isNumeric } from "/src/shared/utils/mathUtils"
 
 export const units = ["oz","tbsp","tsp","mL","dash","drops"]
 //conversion matrix
@@ -61,4 +62,9 @@ export function isValidQuantity(input){
   } catch (e) {
     return false;
   }
+}
+
+export function fractionToDecimal(fraction){
+   if(isNumeric(fraction)) return fraction
+    return new Fraction(fraction).valueOf()
 }

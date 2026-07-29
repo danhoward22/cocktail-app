@@ -7,7 +7,7 @@ export function useCocktailForm(cocktail){
         cocktail.ingredients.map((ingredient) => {
             return {id:ingredient.id, qty:ingredient.qty, units:ingredient.units}
         })
-        : [{id:"",qty:"", units:"oz"}]
+        : [{id:0, qty:"", units:"oz"}]
     
     const defaultGarnishes = cocktail ? 
         cocktail.garnishes.map((garnish) => {
@@ -18,7 +18,7 @@ export function useCocktailForm(cocktail){
     const form = useForm({
         resolver:zodResolver(cocktailSchema),
         defaultValues:{
-            ingredients: [{id:3, qty:"2", units:"oz"}],//defaultIngredients,
+            ingredients: defaultIngredients,
             garnishes: defaultGarnishes,
         },
     })
@@ -33,5 +33,5 @@ export function useCocktailForm(cocktail){
         name: "garnishes",
     });
 
-    return {...form, ingredientFieldArray, garnishFieldArray }
+    return { ...form, ingredientFieldArray, garnishFieldArray }
 }

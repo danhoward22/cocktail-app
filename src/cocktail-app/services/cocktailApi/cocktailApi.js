@@ -41,4 +41,4 @@ export async function fetchFilteredIngredients(inputValue){
 
 export async function fetchIngredient(ingredientId){}
 
-export async function saveCocktail(data){}
+export async function saveCocktail(newCocktail){}
