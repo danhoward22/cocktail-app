@@ -9,5 +9,6 @@ export const {
     fetchCocktail,
     fetchFilteredIngredients,
     fetchIngredient,
-    saveCocktail
+    createCocktail,
+    createIngredient
 } = api;

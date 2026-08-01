@@ -1,17 +1,13 @@
 import { arrayContainsSubstring } from "/src/shared/utils/arrayUtils"
+import { getLocalStorage, setLocalStorage } from "/src/shared/utils/localStorageUtils"
 import { drinkData, ingredientData, drinkIngredientData } from "../../data/mockData"
-import { getLocalStorage } from "/src/shared/utils/localStorageUtils"
-import { setLocalStorage } from "../../../shared/utils/localStorageUtils"
 
-function getParentIngredientNames(ingredientArray, targetId){
+function getParentIngredientNames(ingredientArray, parentId){
   const parentNames = []
-  const target = ingredientArray.find(i => i.id==targetId)
-  if(target.parent_id){
-    const parent = ingredientArray.find(i => i.id==target.parent_id)
-    parentNames.push(parent.name)
-    if(parent.parent_id){
-      parentNames.push(...getParentIngredientNames(ingredientArray, target.parent_id))
-    }
+  const parent = ingredientArray.find(i => i.id==parentId)
+  parentNames.push(parent.name)
+  if(parent.parent_id){
+    parentNames.push(...getParentIngredientNames(ingredientArray, parent.parent_id))
   }
 
   return parentNames
@@ -34,7 +30,7 @@ function parseCocktailObject(drink, contents, ingredientArray){
         ingredientList.push({
           id: ingredient.id,
           name: ingredient.name,
-          parents: getParentIngredientNames(ingredientArray, content.ingredient_id),
+          parents: getParentIngredientNames(ingredientArray, ingredient.parent_id),
           qty: content.qty,
           units: content.units
         })
@@ -97,7 +93,7 @@ export async function fetchCocktailList(){
           try{
             const ingredient=ingredientArray.find(i => i.id==content.ingredient_id)
             ingredientList.push(ingredient.name)
-            parentIngredients.push(...getParentIngredientNames(ingredientArray, content.ingredient_id))
+            parentIngredients.push(...getParentIngredientNames(ingredientArray, ingredient.parent_id))
           }catch(e){
             console.error("Error parsing cocktail ingredients in fetchCocktailList: ", e.message, "drink:", drink, "ingredient:",content)
           }
@@ -154,10 +150,15 @@ export async function fetchFilteredIngredients(inputValue){
 
 export async function fetchIngredient(ingredientId){
   await new Promise((resolve) => setTimeout(resolve, 1000))
-  return ingredientData.find(i => i.id==parseInt(ingredientId))
+  const i=ingredientData.find(i => i.id==parseInt(ingredientId))
+  return {
+    id:i.id,
+    name:i.name,
+    parentId:i.parent_id
+  }
 }
 
-export async function saveCocktail(newCocktail){
+export async function createCocktail(newCocktail){
   //same name and ingredients - Identical recipe already exists
   //same name, different ingredients, no source - edit name or source to differentiate
   //id doesn't exist (ingredient, garnish)
@@ -178,29 +179,20 @@ export async function saveCocktail(newCocktail){
 
   const drinkContents = getLocalStorage("drinkIngredientData") || drinkIngredientData
   if(existingDrinkId){
-    const existingDrink = drinkContents.map(content => {
-      if(content.drink_id === existingDrinkId){
-        return {
-          id:content.ingredient_id,
-          qty:content.qty,
-          units:content.units,
-          is_garnish:content.is_garnish
-        }
-      }
-    })
+    const existingDrinkContent = drinkContents.filter(content => content.drink_id === existingDrinkId)
     //check for same recipe
-    if(newCocktail.ingredients.length + newCocktail.garnishes.length == existingDrink.length){
+    if(newCocktail.ingredients.length + newCocktail.garnishes.length == existingDrinkContent.length){
       let sameRecipe = true
-      for(const i of existingDrink){
-        if(i.is_garnish){
-          const sameGarnish = newCocktail.garnishes.find(g => (i.id==g.id && i.qty==g.qty))
-          if(sameGarnish===undefined){
+      for(const content of existingDrinkContent){
+        if(content.is_garnish){
+          const sameGarnish = newCocktail.garnishes.some(g => (content.id==g.id && content.qty==g.qty))
+          if(!sameGarnish){
             sameRecipe=false
             break
           }
         }else{
-          const sameIngredient = newCocktail.ingredients.find(g => (i.id==g.id && i.qty==g.qty && i.units==g.units))
-          if(sameIngredient===undefined){
+          const sameIngredient = newCocktail.ingredients.some(g => (content.id==g.id && content.qty==g.qty && content.units==g.units))
+          if(!sameIngredient){
             sameRecipe=false
             break
           }
@@ -224,9 +216,9 @@ export async function saveCocktail(newCocktail){
   }
 
   let newIndex=0;
-  for (const d of drinkArray.values()) {
-    if(d.id > newIndex) newIndex = d.id;
-  }
+  drinkArray.forEach(d => {
+    if(d.id > newIndex) newIndex = d.id
+  })
   newIndex++
 
   drinkArray.push({
@@ -256,4 +248,29 @@ export async function saveCocktail(newCocktail){
     })
   })
   setLocalStorage("drinkIngredientData", drinkContents)
+}
+
+export async function createIngredient(newIngredient){
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  const ingredientArray = getLocalStorage("ingredientData") || ingredientData
+  if(ingredientArray.some(i => i.name.toLowerCase()===newIngredient.name.toLowerCase())){
+    const error = new Error("Ingredient already exists");
+    //error.status = response.status; // Attach custom metadata
+    //error.info = errorData;
+    throw error;
+  }
+
+  let newIndex=0;
+  ingredientArray.forEach(i => {
+    if(i.id > newIndex) newIndex = i.id;
+  })
+  newIndex++
+
+  ingredientArray.push({
+    id: newIndex,
+    name: newIngredient.name,
+    parent_id: newIngredient.parentId
+  })
+  setLocalStorage("ingredientData", ingredientArray)
 }

@@ -1,11 +1,12 @@
+import { useEffect } from "react"
 import { IngredientInput } from "./IngredientInput"
 import SubmitButton from "/src/shared/components/ui/SubmitButton"
 import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
+import FadeoutMessage from "/src/shared/components/ui/FadeoutMessage"
 import { useCocktailForm } from "../hooks/useCocktailForm"
-import styles from "./CocktailForm.module.css"
 import { fractionToDecimal } from "../utils/unitUtils"
-import { saveCocktail } from "../services/cocktailApi"
-
+import { createCocktail } from "../services/cocktailApi"
+import styles from "./CocktailForm.module.css"
 
 export function CocktailForm({cocktail}){
 
@@ -13,16 +14,22 @@ export function CocktailForm({cocktail}){
         control,
         register,
         handleSubmit,
+        reset,
         setError,
         ingredientFieldArray,
         garnishFieldArray,
-        formState: {errors,isSubmitting}
+        formState: {errors,isSubmitting,isSubmitSuccessful}
     } = useCocktailForm(cocktail)
+
+    useEffect(()=>{
+        if(isSubmitSuccessful){
+            reset()
+        }
+    },[isSubmitSuccessful,reset])
 
     const onSubmit = async (data) => {
         console.log(data)
         try{
-            //to do: remove whitespace
             const newCocktail = {
                 name: data.cocktailName,
                 notes: data.notes,
@@ -34,7 +41,7 @@ export function CocktailForm({cocktail}){
                     return { id:g.id, qty:fractionToDecimal(g.qty) }
                 })
             }
-            await saveCocktail(newCocktail)
+            await createCocktail(newCocktail)
         }catch(e){
             setError("root", {message: "Submit failed!"})
             console.error(e)
@@ -80,6 +87,7 @@ export function CocktailForm({cocktail}){
             </div>
             <SubmitButton isSubmitting={isSubmitting}/>
             <ErrorMessage className={styles.error} error={errors.root} />
+            <FadeoutMessage showFadeout={isSubmitSuccessful}>Cocktail Saved!</FadeoutMessage>
         </form>
     )
 }

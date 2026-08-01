@@ -1,6 +1,6 @@
 import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { cocktailSchema } from "../schemas/cocktail-app.schemas"
+import { cocktailSchema } from "../schemas/cocktail.schemas"
 
 export function useCocktailForm(cocktail){
     const defaultIngredients = cocktail ? 

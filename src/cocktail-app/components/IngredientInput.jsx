@@ -6,13 +6,14 @@ import styles from "./IngredientInput.module.css"
 
 export function IngredientInput({index, register, control, remove, errors, isGarnish=false}){
     const fieldIndex = `${isGarnish ? "garnishes" : "ingredients"}.${index}`
-
+    const label=`${isGarnish ? "Garnish" : "Ingredient"} ${index+1}`
+    
     return (
         <li className={styles.ingredient}>
             <span className={styles.name}>
                 <Controller name={`${fieldIndex}.id`} control={control}
                     render={({field: {onChange, value}, fieldState:{error}})=>{
-                        return <IngredientCombobox index={index} value={value ?? 0} onChange={onChange} error={error}/>
+                        return <IngredientCombobox label={label} value={value ?? 0} onChange={onChange} error={error}/>
                     }}
                 />
             </span>

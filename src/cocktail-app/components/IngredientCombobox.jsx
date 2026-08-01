@@ -1,11 +1,12 @@
 import { List } from "react-window"
 import { ComboboxRow } from "/src/shared/components/ComboboxRow";
+import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
 import { useIngredientCombobox } from "../hooks/useIngredientCombobox"
 export function IngredientCombobox({
   value,
   onChange,
   error,
-  index,
+  label,
 }){
   const {
       isOpen,
@@ -27,7 +28,7 @@ export function IngredientCombobox({
   return (
     <div>
       <div>
-        <label {...getLabelProps()}>Ingredient {index+1}: {selectedItem?.name}</label>
+        <label {...getLabelProps()}>{label}: {selectedItem?.name}</label>
         <div>
           <input
             placeholder={"Search Ingredients..."}
@@ -59,7 +60,7 @@ export function IngredientCombobox({
           }
           {isOpen && noResults && <li>No matching ingredients</li>}
       </ul>
-      {error && <span style={{ color: 'red' }}>{error.message}</span>}
+      <ErrorMessage error={error} />
     </div>
   )
 }

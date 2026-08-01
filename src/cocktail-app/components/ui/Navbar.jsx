@@ -11,7 +11,10 @@ export function Navbar({styles}) {
           <NavLink to="/cocktails">Search</NavLink>
         </li>
         <li>
-          <NavLink to="/cocktails/new-cocktail">Add</NavLink>
+          <NavLink to="/cocktails/new-cocktail">Add Cocktail</NavLink>
+        </li>
+        <li>
+          <NavLink to="/cocktails/new-ingredient">Add Ingredient</NavLink>
         </li>
       </ul>
     </nav>

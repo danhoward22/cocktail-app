@@ -1,13 +1,14 @@
 import {createBrowserRouter, RouterProvider} from 'react-router'
 
-import { CocktailAppFrame } from './cocktail-app/components/CocktailAppFrame.jsx'
-import { CocktailHome } from './cocktail-app/pages/CocktailHome/CocktailHome.jsx'
-import { CocktailSearchPage } from './cocktail-app/pages/CocktailSearch/CocktailSearchPage.jsx'
-import {CocktailPage} from './cocktail-app/pages/CocktailPage/CocktailPage.jsx'
-import { AddCocktailPage } from './cocktail-app/pages/AddCocktail/AddCocktailPage.jsx'
-import { NotFoundPage } from './NotFoundPage.jsx'
-import { cocktailLoader } from './loaders/cocktailLoader.js'
-import { cocktailListLoader } from './loaders/cocktailListLoader.js'
+import { CocktailAppFrame } from './cocktail-app/components/CocktailAppFrame'
+import { CocktailHome } from './cocktail-app/pages/CocktailHome/CocktailHome'
+import { CocktailSearchPage } from './cocktail-app/pages/CocktailSearch/CocktailSearchPage'
+import {CocktailPage} from './cocktail-app/pages/CocktailPage/CocktailPage'
+import { AddCocktailPage } from './cocktail-app/pages/AddCocktail/AddCocktailPage'
+import { AddIngredientPage } from './cocktail-app/pages/AddIngredient/AddIngredientPage'
+import { NotFoundPage } from './NotFoundPage'
+import { cocktailLoader } from './loaders/cocktailLoader'
+import { cocktailListLoader } from './loaders/cocktailListLoader'
 
 const router = createBrowserRouter([
   {
@@ -37,13 +38,13 @@ const router = createBrowserRouter([
         children: [
           {
             path:"/cocktails/new-cocktail/new-ingredient",
-            element: <h1>Add New Ingredient</h1>
+            element: <AddIngredientPage/>
           },
         ]
       },
       {
         path:"/cocktails/new-ingredient",
-        element:<h1>Add New Ingredient</h1>
+        element:<AddIngredientPage/>
       },
     ]
   },

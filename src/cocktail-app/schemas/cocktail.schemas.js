@@ -2,13 +2,13 @@ import {z} from "zod";
 import { units, isValidQuantity } from "../utils/unitUtils";
 
 export const cocktailSchema = z.object({
-    cocktailName: z.string().min(1, "Enter a cocktail name").max(255, "Name is too long (255 max characters)"),
-    source: z.string().max(255),
-    notes: z.string().max(1000),
+    cocktailName: z.string().trim().min(1, "Enter a cocktail name").max(255, "Name is too long (255 max characters)"),
+    source: z.string().trim().max(255),
+    notes: z.string().trim().max(1000),
     ingredients: z.array(
         z.object({
             id: z.number().min(1, "Select an ingredient"),
-            qty: z.string().min(1,"Enter a quantity").refine(
+            qty: z.string().trim().min(1,"Enter a quantity").refine(
                 (val) => isValidQuantity(val),
                 { message: "Quantity must be a positive decimal or fraction." }
             ),
@@ -21,7 +21,7 @@ export const cocktailSchema = z.object({
     garnishes: z.array(
         z.object({
             id: z.number().min(1, "Select a garnish"),
-            qty: z.string().min(1,"Enter a quantity").refine(
+            qty: z.string().trim().min(1,"Enter a quantity").refine(
                 (val) => isValidQuantity(val),
                 { message: "Quantity must be a positive decimal or fraction." }
             ),
