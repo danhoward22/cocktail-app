@@ -1,63 +1,87 @@
 .form {
-  max-width: 720px;
-  min-width: 320px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-top: 3px solid var(--color-brass);
-  border-radius: var(--radius-md);
-  padding: 0 1.25rem 1rem;
-  box-shadow: var(--shadow-card);
+  composes: panel from "../../shared/styles/panel.module.css";
+  height: auto;
   flex: 1;
-  overflow-y:auto;
-  height:45vh;
+  min-height: 0;
 }
 
 .header {
-  position: sticky;
-  display: flex;
-  flex-direction: row;
-  gap: .5rem;
-  top:0;
-  background: var(--color-surface);
-  padding: 1.25rem 0;
-  margin: 0 0 .25rem;
-  transition: padding 0.3s ease;
+  composes: panelHeader from "../../shared/styles/panel.module.css";
 }
 
-.name {
-  flex:1;
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-  transition: font-size 0.3s ease;
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.ingredients,
-.garnishes {
+.nameField {
+  composes: nameField from "../../shared/styles/field.module.css";
+  flex: 1;
+}
+
+.nameInput {
+  composes: nameInput from "../../shared/styles/field.module.css";
+}
+
+.field {
+  composes: field from "../../shared/styles/field.module.css";
+}
+
+.label {
+  composes: label from "../../shared/styles/field.module.css";
+}
+
+.input {
+  composes: input from "../../shared/styles/field.module.css";
+}
+
+.textarea {
+  composes: textarea from "../../shared/styles/field.module.css";
+}
+
+.fieldGroup {
+  composes: fieldGroup from "../../shared/styles/field.module.css";
+}
+
+.legend {
+  composes: legend from "../../shared/styles/field.module.css";
+}
+
+.rows {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  margin: 0 0 1.5rem;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
   padding: 0;
 }
 
-.notes {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--color-text-dim);
-  border-top: 1px solid var(--color-line);
-  padding-top: 1rem;
-  margin: 0;
+.addRow {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px dashed var(--color-line);
+  color: var(--color-brass-strong);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.9rem;
 }
 
-.source {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-style: italic;
-  color: var(--color-text-dim);
-  padding-top: 1rem;
-  margin: 0;
+.addRow:hover {
+  border-color: var(--color-brass);
+  background: var(--color-brass-soft);
 }
-.error{color:red;}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--color-line);
+}

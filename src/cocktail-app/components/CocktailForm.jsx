@@ -47,47 +47,57 @@ export function CocktailForm({cocktail}){
             console.error(e)
         }
     }
-    
+
     return(
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.name}>
-                <label>Cocktail Name</label>
-                <input type="text" {...register("cocktailName")} />
-                <ErrorMessage className={styles.error} error={errors.cocktailName} />
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className={styles.header}>
+                <div className={styles.nameField}>
+                    <label className={styles.srOnly} htmlFor="cocktailName">Cocktail name</label>
+                    <input id="cocktailName" className={styles.nameInput} type="text" placeholder="Name this cocktail" {...register("cocktailName")} />
+                    <ErrorMessage error={errors.cocktailName} />
+                </div>
             </div>
-            <div className={styles.source}>
-                <label>Source</label>
-                <input {...register("source")} type="text" placeholder="book title, bartender, etc." />
-                <ErrorMessage className={styles.error} error={errors.source} />
+
+            <div className={styles.field}>
+                <label className={styles.label} htmlFor="source">Source</label>
+                <input id="source" className={styles.input} {...register("source")} type="text" placeholder="Book title, bartender, etc." />
+                <ErrorMessage error={errors.source} />
             </div>
-            <div className={styles.ingredients}>
-                <label>Ingredients</label>
-                <ul>
+
+            <fieldset className={styles.fieldGroup}>
+                <legend className={styles.legend}>Ingredients</legend>
+                <ul className={styles.rows}>
                     {ingredientFieldArray.fields.map((field, index) => 
                         <IngredientInput key={field.id} index={index} register={register} control={control} remove={ingredientFieldArray.remove} errors={errors.ingredients?.[index]} /> 
                     )}
                 </ul>
-                <ErrorMessage className={styles.error} error={errors.ingredients?.root} />
-                <button type="button" onClick={()=>{ingredientFieldArray.append({id:0,qty:"",units:"oz"})}}>Add Ingredient</button>
-            </div>
-            <div className={styles.garnishes}>
-                <label>Garnishes</label>
-                <ul>
+                <ErrorMessage error={errors.ingredients?.root} />
+                <button type="button" className={styles.addRow} onClick={()=>{ingredientFieldArray.append({id:0,qty:"",units:"oz"})}}>+ Add ingredient</button>
+            </fieldset>
+
+            <fieldset className={styles.fieldGroup}>
+                <legend className={styles.legend}>Garnish</legend>
+                <ul className={styles.rows}>
                     {garnishFieldArray.fields.map((field, index) => 
                         <IngredientInput key={field.id} index={index} register={register} control={control} remove={garnishFieldArray.remove} errors={errors.garnishes?.[index]} isGarnish={true} />
                     )}
                 </ul>
-                <ErrorMessage className={styles.error} error={errors.garnishes?.root} />
-                <button type="button" onClick={()=>{garnishFieldArray.append({id:0,qty:""})}}>Add Garnish</button>
+                <ErrorMessage error={errors.garnishes?.root} />
+                <button type="button" className={styles.addRow} onClick={()=>{garnishFieldArray.append({id:0,qty:""})}}>+ Add garnish</button>
+            </fieldset>
+
+            <div className={styles.field}>
+                <label className={styles.label} htmlFor="notes">Notes</label>
+                <textarea id="notes" className={styles.textarea} {...register("notes")} placeholder="Enter instructions here..." />
+                <ErrorMessage error={errors.notes} />
             </div>
-            <div className={styles.notes}>
-                <label>Notes</label>
-                <textarea {...register("notes")} placeholder="Enter instructions here..." />
-                <ErrorMessage className={styles.error} error={errors.notes} />
+
+            <div className={styles.actions}>
+                <SubmitButton isSubmitting={isSubmitting}/>
+                <ErrorMessage variant="banner" error={errors.root} />
             </div>
-            <SubmitButton isSubmitting={isSubmitting}/>
-            <ErrorMessage className={styles.error} error={errors.root} />
-            <FadeoutMessage showFadeout={isSubmitSuccessful}>Cocktail Saved!</FadeoutMessage>
+
+            <FadeoutMessage variant="toast" showFadeout={isSubmitSuccessful}>Cocktail saved</FadeoutMessage>
         </form>
     )
 }

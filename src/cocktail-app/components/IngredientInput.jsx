@@ -7,7 +7,7 @@ import styles from "./IngredientInput.module.css"
 export function IngredientInput({index, register, control, remove, errors, isGarnish=false}){
     const fieldIndex = `${isGarnish ? "garnishes" : "ingredients"}.${index}`
     const label=`${isGarnish ? "Garnish" : "Ingredient"} ${index+1}`
-    
+
     return (
         <li className={styles.ingredient}>
             <span className={styles.name}>
@@ -18,7 +18,14 @@ export function IngredientInput({index, register, control, remove, errors, isGar
                 />
             </span>
             <MeasureInput fieldIndex={fieldIndex} isGarnish={isGarnish} register={register} errors={errors}/> 
-            <button type="button" onClick={()=>{remove(index)}}>Remove</button>
+            <button
+                type="button"
+                className={styles.removeButton}
+                onClick={()=>{remove(index)}}
+                aria-label={`Remove ${label.toLowerCase()}`}
+            >
+                &#215;
+            </button>
         </li>
     )
 }

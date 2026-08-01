@@ -15,7 +15,7 @@ export function Ingredient({ingredient}){
                 {quantity}
                 {units ?
                     <UnitSelect value={units} onChange={handleUnitChange}/>
-                    : <span>piece{quantity>1 && "s"}</span>
+                    : <span className={styles.unitText}>piece{quantity>1 && "s"}</span>
                 }
             </span>
         </li>

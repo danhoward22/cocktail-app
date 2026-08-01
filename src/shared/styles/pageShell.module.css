@@ -1,0 +1,32 @@
+/* Shared page-level layout: a centered column that fills the space below
+   the navbar, plus a matching loading placeholder. */
+.page {
+  max-width: 720px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 auto;
+  /* 100% - main and navbar padding - navbar line height */
+  height: calc(100vh - 2.55rem - 24px);
+}
+
+.loading {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  background: var(--color-surface);
+}
+
+.loadingText {
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+}

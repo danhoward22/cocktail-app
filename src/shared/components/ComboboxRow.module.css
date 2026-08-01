@@ -1,0 +1,22 @@
+.item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.highlighted {
+  background: var(--color-surface-raised);
+}
+
+.selected {
+  color: var(--color-brass-strong);
+  font-weight: 600;
+}

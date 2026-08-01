@@ -1,39 +1,17 @@
 .measure {
-  flex-shrink: 0;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-brass-strong);
-  background: var(--color-brass-soft);
-  border: 1px solid var(--color-brass);
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.measure select{
-  font-family: var(--font-mono);
-  color: var(--color-brass-strong);
-  background: transparent;
-  border:none;
-  padding: 0;
-  margin-left:0.15rem;
-  white-space: nowrap;
-}
-
-.measure span{
-  font-family: var(--font-mono);
-  color: var(--color-brass-strong);
-  background: transparent;
-  border:none;
-  padding: 1px 0;
-  margin-left:0.15rem;
-  white-space: nowrap;
+  composes: pill from "../../shared/styles/pill.module.css";
 }
 
 .qty {
   text-align: right;
-  width:5rem;
+  width: 5rem;
   border: 1px solid var(--color-brass);
-  margin-left:.15rem;
+  margin-left: 0.15rem;
 }
-.error{border:1px solid red;}
+
+.unit {
+  font-family: var(--font-mono);
+  color: var(--color-brass-strong);
+  margin-left: 0.15rem;
+  white-space: nowrap;
+}

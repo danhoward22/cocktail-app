@@ -1,26 +1,35 @@
 .ingredient {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 0.65rem;
-  border-bottom: 1px dotted var(--color-line);
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
 }
 
 .name {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--color-text);
+  flex: 1;
+  min-width: 0;
 }
 
-.name select{
-  font-family: var(--font-mono);
-  color: var(--color-brass-strong);
-  background: transparent;
-  border:none;
+.removeButton {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
-  margin-left:0.15rem;
-  white-space: nowrap;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  color: var(--color-text-dim);
+  font-size: 1rem;
+  line-height: 1;
 }
 
-.error{border:1px solid red;}
+.removeButton:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}

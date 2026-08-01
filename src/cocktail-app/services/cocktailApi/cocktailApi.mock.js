@@ -27,10 +27,11 @@ function parseCocktailObject(drink, contents, ingredientArray){
           qty: content.qty
         })
       }else{
+        const parents = ingredient?.parent_id ? getParentIngredientNames(ingredientArray, ingredient.parent_id) : []
         ingredientList.push({
           id: ingredient.id,
           name: ingredient.name,
-          parents: getParentIngredientNames(ingredientArray, ingredient.parent_id),
+          parents: parents,
           qty: content.qty,
           units: content.units
         })
@@ -93,7 +94,7 @@ export async function fetchCocktailList(){
           try{
             const ingredient=ingredientArray.find(i => i.id==content.ingredient_id)
             ingredientList.push(ingredient.name)
-            parentIngredients.push(...getParentIngredientNames(ingredientArray, ingredient.parent_id))
+            if(ingredient?.parent_id) parentIngredients.push(...getParentIngredientNames(ingredientArray, ingredient.parent_id))
           }catch(e){
             console.error("Error parsing cocktail ingredients in fetchCocktailList: ", e.message, "drink:", drink, "ingredient:",content)
           }
@@ -138,7 +139,7 @@ export async function fetchFilteredIngredients(inputValue){
   let i = 0
   
   ingredientData.forEach((ingredient) => {
-    const parents = ingredient.parent_id ? getParentIngredientNames(ingredientData, ingredient.parent_id) : []
+    const parents = ingredient?.parent_id ? getParentIngredientNames(ingredientData, ingredient.parent_id) : []
     if(i < 200 && arrayContainsSubstring([...parents, ingredient.name],inputValue)){
       options.push(ingredient)
       i++

@@ -1,12 +1,12 @@
 import { Outlet } from "react-router"
 import styles from "./CocktailAppFrame.module.css"
-import { Navbar } from "./ui/NavBar"
+import { Navbar } from "./ui/Navbar"
 
 export function CocktailAppFrame() {
   return (
     <div className={styles.appContainer}>
-      <Navbar styles={styles}/>
-      <main>
+      <Navbar/>
+      <main className={styles.main}>
         <Outlet/>
       </main>
     </div>

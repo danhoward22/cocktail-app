@@ -2,6 +2,8 @@ import { List } from "react-window"
 import { ComboboxRow } from "/src/shared/components/ComboboxRow";
 import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
 import { useIngredientCombobox } from "../hooks/useIngredientCombobox"
+import styles from "./IngredientCombobox.module.css"
+
 export function IngredientCombobox({
   value,
   onChange,
@@ -24,18 +26,22 @@ export function IngredientCombobox({
       initialId: value || null,
       onChange: onChange,
   })
-  
+
+  const menuOpen = isOpen && (items.length > 0 || noResults)
+
   return (
-    <div>
+    <div className={styles.combobox}>
       <div>
-        <label {...getLabelProps()}>{label}: {selectedItem?.name}</label>
-        <div>
+        <label className={styles.label} {...getLabelProps()}>{label}: {selectedItem?.name}</label>
+        <div className={styles.inputRow}>
           <input
+            className={styles.input}
             placeholder={"Search Ingredients..."}
             {...getInputProps()}
           />
-          {loading && <span style={{ marginLeft: '-25px' }}>⏳</span>}
+          {loading && <span className={styles.spinner}>⏳</span>}
           <button
+            className={styles.clearButton}
             aria-label="clear input"
             type="button"
             onClick={() => {
@@ -48,7 +54,7 @@ export function IngredientCombobox({
         </div>
       </div>
       <ul
-        className={(isOpen && items.length) ? undefined : 'hidden'}
+        className={menuOpen ? styles.menu : `${styles.menu} ${styles.menuHidden}`}
         {...getMenuProps()}
       >
           {isOpen &&
@@ -58,7 +64,7 @@ export function IngredientCombobox({
                 rowProps={{items, selectedItem, highlightedIndex, getItemProps}}
               />
           }
-          {isOpen && noResults && <li>No matching ingredients</li>}
+          {isOpen && noResults && <li className={styles.noResults}>No matching ingredients</li>}
       </ul>
       <ErrorMessage error={error} />
     </div>

@@ -1,37 +1,20 @@
 .page {
-  max-width: 720px;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 0 auto;
-  /*100% - main and navbar padding - navbar line height*/
-  height: calc(100vh - 2.55rem - 24px);
+  composes: page from "../../../shared/styles/pageShell.module.css";
 }
 
 .searchControls {
   display: flex;
   flex-direction: row;
   flex: 0;
-  gap:.5rem;
+  gap: .5rem;
 }
 
 .loading {
-  display: flexbox;
-  flex: 1;
-  min-height: 0;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  background: var(--color-surface);
+  composes: loading from "../../../shared/styles/pageShell.module.css";
 }
 
 .loadingText {
-  font-family: var(--font-mono);
-  color: var(--color-text-dim);
-  font-size: 0.85rem;
-  margin: 0;
-  text-align: center;
+  composes: loadingText from "../../../shared/styles/pageShell.module.css";
 }
 
 @media (prefers-reduced-motion: no-preference) {

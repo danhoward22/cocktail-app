@@ -1,0 +1,32 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: row;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  color: var(--color-text);
+}
+
+.navLinks li {
+  list-style: none;
+  padding: 0.65rem 0;
+}
+
+.navLink {
+  color: var(--color-text);
+  transition: color 0.15s ease;
+}
+
+.navLink:hover {
+  color: var(--color-brass-strong);
+}
+
+.navLink.active {
+  color: var(--color-brass-strong);
+}

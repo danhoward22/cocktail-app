@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
+import styles from "./FadeoutMessage.module.css"
 
-export default function FadeoutMessage({showFadeout, className, children}){
+export default function FadeoutMessage({showFadeout, variant = "inline", className, children}){
     const [isFadingOut,setIsFadingOut] = useState(false)
 
     useEffect(()=>{
@@ -9,20 +10,15 @@ export default function FadeoutMessage({showFadeout, className, children}){
             const timeout = setTimeout(() => {
                 setIsFadingOut(false)
             }, 3000);
+            return () => clearTimeout(timeout)
         }
     },[showFadeout, setIsFadingOut])
 
-    return(
-        isFadingOut ? 
-        <>
-            <style>
-                {`@keyframes fadeout {
-                from { opacity: 1; }
-                to { opacity: 0; }
-                }`}
-            </style>
-            <div style={{animation: "fadeout 2.9s ease-out forwards"}} className={className}>{children}</div>
-        </>
-        : <></>
-    )
+    if(!isFadingOut) return null
+
+    const classes = [styles.message, variant === "toast" ? styles.toast : null, className]
+        .filter(Boolean)
+        .join(" ")
+
+    return <div className={classes} role="status">{children}</div>
 }

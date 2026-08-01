@@ -1,0 +1,16 @@
+.button {
+  background: var(--color-brass);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--color-brass-strong);
+  border-color: transparent;
+}
+
+.button:disabled {
+  background: var(--color-surface-raised);
+  color: var(--color-text-dim);
+  cursor: not-allowed;
+}

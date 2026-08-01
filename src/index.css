@@ -13,6 +13,8 @@
   --color-brass-strong: #e0a25c;
   --color-brass-soft: rgba(201, 138, 62, 0.16);
   --color-verdant: #7a9b76;
+  --color-danger: #d9695f;
+  --color-danger-soft: rgba(217, 105, 95, 0.14);
 
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: Avenir, Helvetica, Arial, sans-serif;

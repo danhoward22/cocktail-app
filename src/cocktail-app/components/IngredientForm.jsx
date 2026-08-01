@@ -26,18 +26,6 @@ export function IngredientForm({ingredient}){
         },
     })
 
-//   const showToast = (message) => {
-//     const id = Date.now();
-    
-//     // Add new toast to state
-//     setToasts((prev) => [...prev, { id, message }]);
-
-//     // Auto-remove this specific toast after 3000ms
-//     setTimeout(() => {
-//       setToasts((prev) => prev.filter((toast) => toast.id !== id));
-//     }, 3000);
-//   };
-
     useEffect(() => {
         if (isSubmitSuccessful) {
             reset()
@@ -57,24 +45,31 @@ export function IngredientForm({ingredient}){
             console.error(e)
         }
     }
-    
+
     return(
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.name}>
-                <label>Ingredient Name</label>
-                <input type="text" {...register("ingredientName")} />
-                <ErrorMessage className={styles.error} error={errors.ingredientName} />
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className={styles.header}>
+                <div className={styles.nameField}>
+                    <label className={styles.srOnly} htmlFor="ingredientName">Ingredient name</label>
+                    <input id="ingredientName" className={styles.nameInput} type="text" placeholder="Name this ingredient" {...register("ingredientName")} />
+                    <ErrorMessage error={errors.ingredientName} />
+                </div>
             </div>
-            <div className={styles.parent}>
+
+            <div className={styles.field}>
                 <Controller name='parentId' control={control}
                     render={({field: {onChange, value}, fieldState:{error}})=>{
-                        return <IngredientCombobox label="Parent" value={value ?? 0} onChange={onChange} error={error}/>
+                        return <IngredientCombobox label="Parent ingredient" value={value ?? 0} onChange={onChange} error={error}/>
                     }}
                 />
             </div>
-            <SubmitButton isSubmitting={isSubmitting}/>
-            <ErrorMessage className={styles.error} error={errors.root} />
-            <FadeoutMessage showFadeout={isSubmitSuccessful}>Ingredient Saved!</FadeoutMessage>
+
+            <div className={styles.actions}>
+                <SubmitButton isSubmitting={isSubmitting}/>
+                <ErrorMessage variant="banner" error={errors.root} />
+            </div>
+
+            <FadeoutMessage variant="toast" showFadeout={isSubmitSuccessful}>Ingredient saved</FadeoutMessage>
         </form>
     )
 }

@@ -1,27 +1,9 @@
 .card {
-  max-width: 720px;
-  min-width: 320px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-top: 3px solid var(--color-brass);
-  border-radius: var(--radius-md);
-  padding: 0 1.25rem 1rem;
-  box-shadow: var(--shadow-card);
-  flex: 1;
-  overflow-y:auto;
-  height:45vh;
+  composes: panel from "../../../shared/styles/panel.module.css";
 }
 
 .header {
-  position: sticky;
-  display: flex;
-  flex-direction: row;
-  gap: .5rem;
-  top:0;
-  background: var(--color-surface);
-  padding: 1.25rem 0;
-  margin: 0 0 .25rem;
-  transition: padding 0.3s ease;
+  composes: panelHeader from "../../../shared/styles/panel.module.css";
 }
 
 .sticky {
@@ -30,12 +12,7 @@
 }
 
 .name {
-  flex:1;
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-  transition: font-size 0.3s ease;
+  composes: panelTitle from "../../../shared/styles/panel.module.css";
 }
 
 .sticky .name {
