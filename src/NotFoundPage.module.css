@@ -17,18 +17,5 @@
 }
 
 .link {
-  display: inline-flex;
-  font-family: var(--font-body);
-  font-weight: 600;
-  color: var(--color-ink);
-  background: var(--color-brass);
-  padding: 0.75rem 1.5rem;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.link:hover {
-  background: var(--color-brass-strong);
-  color: var(--color-ink);
+  composes: primary from "./shared/styles/button.module.css";
 }

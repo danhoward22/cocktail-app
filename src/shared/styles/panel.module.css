@@ -11,8 +11,8 @@
   padding: 0 1.25rem 1rem;
   box-shadow: var(--shadow-card);
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
-  height: 45vh;
 }
 
 /* Sticky title row shown at the top of a panel. */

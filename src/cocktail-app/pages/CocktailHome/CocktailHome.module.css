@@ -30,38 +30,33 @@
   background: var(--color-brass);
 }
 
-.cta {
-  display: inline-flex;
+.actions {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--color-ink);
-  background: var(--color-brass);
-  padding: 0.9rem 1.75rem;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  gap: 0.85rem;
 }
 
-.cta::after {
+.primary {
+  composes: primary from "../../../shared/styles/button.module.css";
+}
+
+.primary::after {
   content: '\2192';
   margin-left: 0.6rem;
   transition: transform 0.2s ease;
 }
 
-.cta:hover {
-  background: var(--color-brass-strong);
-  color: var(--color-ink);
-}
-
-.cta:hover::after {
+.primary:hover::after {
   transform: translateX(3px);
 }
 
+.secondary {
+  composes: secondary from "../../../shared/styles/button.module.css";
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cta,
-  .cta::after {
+  .primary::after {
     transition: none;
   }
 }

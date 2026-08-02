@@ -1,8 +1,5 @@
 .form {
   composes: panel from "../../shared/styles/panel.module.css";
-  height: auto;
-  flex: 1;
-  min-height: 0;
 }
 
 .header {

@@ -7,10 +7,7 @@ export function AddCocktailPage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <div>
-          <p className={styles.eyebrow}>New Recipe</p>
-          <h1 className={styles.title}>Add a Cocktail</h1>
-        </div>
+        <h1 className={styles.title}>Add a Cocktail</h1>
         <Link to="/cocktails" className={styles.close}>Close</Link>
       </div>
       <CocktailForm />

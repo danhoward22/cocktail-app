@@ -6,10 +6,6 @@
   composes: header from "../../../shared/styles/formPageHeader.module.css";
 }
 
-.eyebrow {
-  composes: eyebrow from "../../../shared/styles/formPageHeader.module.css";
-}
-
 .title {
   composes: title from "../../../shared/styles/formPageHeader.module.css";
 }

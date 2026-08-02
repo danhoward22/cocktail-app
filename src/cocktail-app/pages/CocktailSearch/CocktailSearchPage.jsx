@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import { Outlet, useLoaderData } from "react-router"
+import { Outlet, useLoaderData, useMatches } from "react-router"
 
 import { CocktailSearchToggle } from "./CocktailSearchToggle"
 import { CocktailSearchBar } from "./CocktailSearchBar"
@@ -16,9 +16,16 @@ export function CocktailSearchPage() {
   const [searchBy, setSearchBy] = useSearchBy()
   const [query, setQuery, deferredQuery] = useDeferredQuery()
   const filteredCocktailsPromise = useFilteredCocktailsPromise(cocktailsPromise, deferredQuery, searchBy)
-  
+
+  // A cocktail is selected when the nested /cocktails/:cocktailId route is matched.
+  const matches = useMatches()
+  const hasSelectedCocktail = matches.some((match) => match.params?.cocktailId)
+
   return (
     <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Cocktails</h1>
+      </div>
       <div className={styles.searchControls}>
         <CocktailSearchBar query={query} setQuery={setQuery} />
         <CocktailSearchToggle searchBy={searchBy} setSearchBy={setSearchBy}/>
@@ -30,7 +37,11 @@ export function CocktailSearchPage() {
       }>
           <CocktailList cocktailsPromise={filteredCocktailsPromise}/>
       </Suspense>
-      <Outlet/>
+      {hasSelectedCocktail &&
+        <div className={styles.detail}>
+          <Outlet/>
+        </div>
+      }
     </div>
   )
 }

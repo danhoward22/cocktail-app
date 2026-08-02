@@ -2,6 +2,14 @@
   composes: page from "../../../shared/styles/pageShell.module.css";
 }
 
+.header {
+  composes: header from "../../../shared/styles/formPageHeader.module.css";
+}
+
+.title {
+  composes: title from "../../../shared/styles/formPageHeader.module.css";
+}
+
 .searchControls {
   display: flex;
   flex-direction: row;
@@ -31,4 +39,14 @@
   50% {
     opacity: 0.6;
   }
+}
+
+/* When a cocktail is selected, the list and the detail card split the
+   remaining vertical space evenly (each ~half), and both stay the same
+   width since they're stretched siblings in this flex column. */
+.detail {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
