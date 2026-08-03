@@ -1,15 +1,15 @@
 .page {
-  composes: page from "../../../shared/styles/pageShell.module.css";
+  composes: page from "/src/shared/styles/pageShell.module.css";
 }
 
 .header {
-  composes: header from "../../../shared/styles/formPageHeader.module.css";
+  composes: header from "/src/shared/styles/formPageHeader.module.css";
 }
 
 .title {
-  composes: title from "../../../shared/styles/formPageHeader.module.css";
+  composes: title from "/src/shared/styles/formPageHeader.module.css";
 }
 
 .close {
-  composes: close from "../../../shared/styles/formPageHeader.module.css";
+  composes: close from "/src/shared/styles/formPageHeader.module.css";
 }

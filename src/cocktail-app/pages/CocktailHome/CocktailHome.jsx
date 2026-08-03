@@ -7,8 +7,8 @@ export function CocktailHome() {
       <h1 className={styles.title}>Cocktail App Home Page</h1>
       <div className={styles.actions}>
         <Link className={styles.primary} to="/cocktails">Search Cocktails</Link>
-        <Link className={styles.secondary} to="/cocktails/new-cocktail">Add Cocktail</Link>
-        <Link className={styles.secondary} to="/cocktails/new-ingredient">Add Ingredient</Link>
+        <Link className={styles.secondary} to="/new-cocktail">Add Cocktail</Link>
+        <Link className={styles.secondary} to="/new-ingredient">Add Ingredient</Link>
       </div>
     </div>
   )

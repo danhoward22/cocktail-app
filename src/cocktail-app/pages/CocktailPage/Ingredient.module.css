@@ -14,7 +14,7 @@
 }
 
 .measure {
-  composes: pill from "../../../shared/styles/pill.module.css";
+  composes: pill from "/src/shared/styles/pill.module.css";
 }
 
 .unitText {

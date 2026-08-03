@@ -1,9 +1,9 @@
 .card {
-  composes: panel from "../../../shared/styles/panel.module.css";
+  composes: panel from "/src/shared/styles/panel.module.css";
 }
 
 .header {
-  composes: panelHeader from "../../../shared/styles/panel.module.css";
+  composes: panelHeader from "/src/shared/styles/panel.module.css";
 }
 
 .sticky {
@@ -12,7 +12,7 @@
 }
 
 .name {
-  composes: panelTitle from "../../../shared/styles/panel.module.css";
+  composes: panelTitle from "/src/shared/styles/panel.module.css";
 }
 
 .sticky .name {

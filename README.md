@@ -6,54 +6,71 @@ A React app for browsing classic cocktail recipes: search by name or by ingredie
 
 - **React 19** + **Vite** — build tooling and dev server
 - **react-router** — routing, data loading (`loader`), and nested routes
-- **react-window** — virtualized list rendering for the search results
-- **fraction.js** — converts decimal quantities to clean fractions (e.g. `0.5 oz` → `½ oz`)
-- **downshift** — filterable async select elements
-- **react-hook-form** — form validation
-- **zod** — form validation schema
+- **react-window** — virtualized list rendering
+- **fraction.js** — converts decimal quantities to clean fractions (e.g. `0.5 oz` → `1/2 oz`)
+- **downshift** — combobox and multiselect elements
+- **react-hook-form + zod** — form validation
 
+## Getting Started
 
+### Prerequisites
 
-## Getting started
+- Node.js 18+
+
+### Install
 
 ```bash
 npm install
+```
+
+### Configure
+
+Create a `.env` file in the project root:
+
+```
+VITE_USE_MOCK_API=true
+```
+
+`true` uses the built-in mock API, backed by `localStorage`. `false` uses the real API client, which requires further implementation.
+
+### Run
+
+```bash
 npm run dev
 ```
 
-Other scripts:
+### Build
 
 ```bash
-npm run build    # production build to dist/
-npm run preview  # preview the production build locally
-npm run lint     # run ESLint
+npm run build
 ```
 
 ## Project structure
 
 ```
 src/
-  assets/
-    index.css         # design tokens (colors, type, spacing) + global resets
-  cocktail-app/
-    components/       # Shared cocktail app components
-      ui/             # UI primitives
-    data/             # Mock data files
-    hooks/            # useCocktail, useCocktailList, useSearchBy, useMeasure
-    pages/            # Cocktail app pages and subcomponents organized into page specific subfolders
-    schemas/          # Zod schemas
-    services/
-      cocktailApi/    # Real and mock API fetch functions
-    utils/            # Cocktail helpers, unit conversion
-    loaders/          # Page data loaders
-  shared/
-    components/       # VirtualNavList, NavRow — generic virtualized nav list
-    hooks/            # useDeferredQuery
-    utils/            # arrayUtils
-  App.jsx             # router setup
+├──cocktail-app/
+│  ├──components/ # Shared cocktail app components
+│  │  └──ui/      # UI primitives
+│  ├──data/       # Mock data files
+│  ├──hooks/      # Cocktail app custom hooks
+│  ├──pages/      # Cocktail app pages and subcomponents organized into subfolders
+│  ├──schemas/    # Zod schemas
+│  ├──services/
+│  │  └──cocktailApi/  # Real and mock API fetch functions
+│  └──utils/      # Cocktail helpers, unit conversion
+├──loaders/       # Page data loaders
+├──loaders/
+├──shared/
+│  ├──components/ # Reusable generic components
+│  │  └──ui/      # UI primitives
+│  ├──hooks/      # useDeferredQuery
+│  ├──styles/     # Reusable generic css modules
+│  └──utils/      # arrayUtils, localStorageUtils, mathUtils
+└──App.jsx        # router setup
 ```
 
-Each component that needs styling has a co-located `Component.module.css` file, imported directly into its `.jsx` file. Shared design tokens (colors, fonts, radii) live as CSS custom properties in `src/index.css` and are referenced from every module.
+CSS Modules throughout. Generic, reusable styles (buttons, form fields, page layout, panels) live in `src/shared/styles` and are composed into feature-specific modules to avoid duplication.
 
 ## Routes
 
@@ -62,36 +79,23 @@ Each component that needs styling has a co-located `Component.module.css` file, 
 | `/`                            | Home page                                      |
 | `/cocktails`                   | Search page (loads the full cocktail list)     |
 | `/cocktails/:cocktailId`       | Recipe detail, nested inside the search page   |
-| `/cocktails/new-cocktail`      | Add new coctail form (IN PROGRESS)             |
-| `/cocktails/new-ingredient`    | Placeholder                                    |
-
-## Data
-
-Cocktail data currently initializes in `src/cocktail-app/services/cocktailApi` with an index file to toggle mock and real API sources.
-
-Each ingredient carries a base `qty` and `units` (`oz`, `tbsp`, `tsp`, `mL`, `dash`, `drops`, or none for countable items like mint leaves). Garnishes are now objects (`{id, name, qty}`) rather than plain strings, so a garnish can have its own count (e.g. two cherries).
-
-## Unit conversion
-
-Each `Ingredient` row uses the `useMeasure` hook to keep its own local unit state, and `UnitSelect` to alter the displayed measure units.
-
-`unitUtils.js` holds the conversion matrix between `oz`, `tbsp`, `tsp`, `mL`, `dash`, and `drops`, and `getClosestFraction`, which snaps a converted decimal to the nearest sensible fraction (halves, thirds, quarters, eighths). 1/16 and 1/32 are allowed for small measures to to avoid rounding to zero.
+| `/new-cocktail`                | Add new coctail form (IN PROGRESS)             |
+| `/new-ingredient`              | Placeholder                                    |
 
 ## Development roadmap
 
-1. **Implement "Add New Cocktail" and "Add New Ingredient"** — Build out forms to save cocktails and ingredients to `localStorage`. - IN PROGRESS
-2. **Add "Edit Cocktail" and "Edit Ingredient" functionality** — Utilize the Add Cocktail and Ingredient forms to enable edit capabilities to existing custom recipes.
-3. **Quantity multiplier** — Create a recipe multiplier field to to scale up volumes for batch cocktails. Add cup and liter units to support.
-4. **Secure backend data access** — Devise an authentication method to restrict access to add/edit pages, and secure data fetch methods in preparation for API deployment.
-4. **Replace the in-memory data source with a real API** — Likely will be a PHP REST API. Add loading/error states where needed.
-5. **Create a bulk upload page** — Build out a page that parses a csv file of cocktail recipes, and uploads the recipes to the database, conditionally creating the unknown ingredients.
+1. **"Edit Cocktail" and "Edit Ingredient" functionality**
+2. **Recipe quantity multiplier**
+3. **Secure backend data access**
+4. **Replace the in-memory data source with a real API**
+5. **Bulk upload page**
 
 Additional roadmap items (in no particular order):
 - **Typescript update**
 - **React Native update**
-- **Accessibility pass** — audit the custom `UnitSelect` and search toggle for keyboard navigation and screen-reader labeling now that there's more interactive UI per row.
-- **Tests** — no test setup exists yet; start with unit tests for `unitUtils.js` (conversion math and fraction rounding are the highest-value, easiest-to-break logic in the app).
-- **Clone for iOS** — Replicate app in Swift.
+- **Accessibility pass**
+- **Tests**
+- **Clone in Swift**
 
 ## Copyright and Licensing
 

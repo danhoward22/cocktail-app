@@ -8,7 +8,7 @@ export function AddCocktailPage() {
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.title}>Add a Cocktail</h1>
-        <Link to="/cocktails" className={styles.close}>Close</Link>
+        {/* {<Link to="/cocktails" className={styles.close}>Close</Link>} */}
       </div>
       <CocktailForm />
     </div>

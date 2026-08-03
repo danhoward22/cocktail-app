@@ -1,13 +1,13 @@
 .page {
-  composes: page from "../../../shared/styles/pageShell.module.css";
+  composes: page from "/src/shared/styles/pageShell.module.css";
 }
 
 .header {
-  composes: header from "../../../shared/styles/formPageHeader.module.css";
+  composes: header from "/src/shared/styles/formPageHeader.module.css";
 }
 
 .title {
-  composes: title from "../../../shared/styles/formPageHeader.module.css";
+  composes: title from "/src/shared/styles/formPageHeader.module.css";
 }
 
 .searchControls {
@@ -18,11 +18,11 @@
 }
 
 .loading {
-  composes: loading from "../../../shared/styles/pageShell.module.css";
+  composes: loading from "/src/shared/styles/pageShell.module.css";
 }
 
 .loadingText {
-  composes: loadingText from "../../../shared/styles/pageShell.module.css";
+  composes: loadingText from "/src/shared/styles/pageShell.module.css";
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -42,10 +42,10 @@
 }
 
 /* When a cocktail is selected, the list and the detail card split the
-   remaining vertical space evenly (each ~half), and both stay the same
+   remaining vertical space (2/3 detail, 1/3 list), and both stay the same
    width since they're stretched siblings in this flex column. */
 .detail {
-  flex: 1;
+  flex: 2;
   min-height: 0;
   display: flex;
   flex-direction: column;

@@ -1,9 +1,9 @@
 .form {
-  composes: panel from "../../shared/styles/panel.module.css";
+  composes: panel from "/src/shared/styles/panel.module.css";
 }
 
 .header {
-  composes: panelHeader from "../../shared/styles/panel.module.css";
+  composes: panelHeader from "/src/shared/styles/panel.module.css";
 }
 
 .srOnly {
@@ -19,16 +19,16 @@
 }
 
 .nameField {
-  composes: nameField from "../../shared/styles/field.module.css";
+  composes: nameField from "/src/shared/styles/field.module.css";
   flex: 1;
 }
 
 .nameInput {
-  composes: nameInput from "../../shared/styles/field.module.css";
+  composes: nameInput from "/src/shared/styles/field.module.css";
 }
 
 .field {
-  composes: field from "../../shared/styles/field.module.css";
+  composes: field from "/src/shared/styles/field.module.css";
 }
 
 .actions {

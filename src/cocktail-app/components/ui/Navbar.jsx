@@ -14,10 +14,10 @@ export function Navbar() {
           <NavLink to="/cocktails" className={linkClassName}>Search</NavLink>
         </li>
         <li>
-          <NavLink to="/cocktails/new-cocktail" className={linkClassName}>Add Cocktail</NavLink>
+          <NavLink to="/new-cocktail" className={linkClassName}>Add Cocktail</NavLink>
         </li>
         <li>
-          <NavLink to="/cocktails/new-ingredient" className={linkClassName}>Add Ingredient</NavLink>
+          <NavLink to="/new-ingredient" className={linkClassName}>Add Ingredient</NavLink>
         </li>
       </ul>
     </nav>

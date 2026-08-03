@@ -17,7 +17,6 @@ export function CocktailSearchPage() {
   const [query, setQuery, deferredQuery] = useDeferredQuery()
   const filteredCocktailsPromise = useFilteredCocktailsPromise(cocktailsPromise, deferredQuery, searchBy)
 
-  // A cocktail is selected when the nested /cocktails/:cocktailId route is matched.
   const matches = useMatches()
   const hasSelectedCocktail = matches.some((match) => match.params?.cocktailId)
 

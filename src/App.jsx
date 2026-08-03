@@ -16,9 +16,9 @@ const router = createBrowserRouter([
     element: <CocktailAppFrame/>,
     errorElement: <NotFoundPage/>,
     children: [
-      { 
+      {
         index: true, 
-        element: <CocktailHome />
+        element: <CocktailHome/>
       },
       {
         path:"/cocktails",
@@ -33,17 +33,17 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path:"/cocktails/new-cocktail",
+        path:"/new-cocktail",
         element:<AddCocktailPage/>,
         children: [
           {
-            path:"/cocktails/new-cocktail/new-ingredient",
+            path:"/new-cocktail/new-ingredient",
             element: <AddIngredientPage/>
           },
         ]
       },
       {
-        path:"/cocktails/new-ingredient",
+        path:"/new-ingredient",
         element:<AddIngredientPage/>
       },
     ]
