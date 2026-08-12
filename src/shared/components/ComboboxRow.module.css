@@ -17,6 +17,5 @@
 }
 
 .selected {
-  color: var(--color-brass-strong);
   font-weight: 600;
 }

@@ -1,6 +1,5 @@
 .ingredient {
   display: flex;
-  align-items: flex-end;
   gap: 0.6rem;
   padding: 0.6rem;
   background: var(--color-surface-raised);
@@ -21,6 +20,7 @@
   width: 2rem;
   height: 2rem;
   padding: 0;
+  margin-top:1.58rem;
   background: transparent;
   border: 1px solid var(--color-line);
   border-radius: 999px;

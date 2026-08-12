@@ -3,7 +3,7 @@
 }
 
 .input {
-  composes: input from "../../../shared/styles/field.module.css";
+  composes: input from "/src/shared/styles/field.module.css";
   font-size: clamp(.75rem, 3vw, 1rem);
   padding: 0.85rem clamp(.75rem, 3vw, 1rem);
 }

@@ -13,9 +13,11 @@
     "@hookform/resolvers": "^5.5.7",
     "downshift": "^9.4.0",
     "fraction.js": "^5.3.4",
+    "node": "^26.7.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.84.0",
+    "react-hot-toast": "^2.6.0",
     "react-router": "^8.3.0",
     "react-window": "^2.3.0",
     "zod": "^4.4.3"
@@ -33,5 +35,8 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "vite": "^8.2.0"
+  },
+  "allowScripts": {
+    "node@26.7.0": true
   }
 }

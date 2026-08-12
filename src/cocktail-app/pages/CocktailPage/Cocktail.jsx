@@ -38,6 +38,7 @@ export function Cocktail({cocktailPromise}){
         <div className={styles.card} ref={cardRef} onScroll={handleScroll}>
             <div className={isScrolled ? `${styles.header} ${styles.sticky}`:styles.header}>
                 <h1 className={styles.name}>{cocktail.name ?? "Untitled cocktail"}</h1>
+                <Link to={`/cocktails/${cocktail.id}/edit`} className={styles.close}>Edit</Link>
                 <Link to='/cocktails' className={styles.close}>Close</Link>
             </div>
             <ul className={styles.ingredients}>

@@ -1,0 +1,31 @@
+.box {
+  border: none;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.box::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.content {
+  position: relative;
+}
+
+.header {
+  composes: header from "/src/shared/styles/formPageHeader.module.css";
+}
+
+.title {
+  composes: title from "/src/shared/styles/formPageHeader.module.css";
+}
+
+.close {
+  composes: close from "/src/shared/styles/formPageHeader.module.css";
+  background: transparent;
+  border: none;
+}

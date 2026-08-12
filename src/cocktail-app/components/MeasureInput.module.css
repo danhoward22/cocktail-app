@@ -1,12 +1,13 @@
 .measure {
   composes: pill from "/src/shared/styles/pill.module.css";
+  margin:1.75rem 0 .3rem;
 }
 
 .qty {
   text-align: right;
   width: 5rem;
   border: 1px solid var(--color-brass);
-  margin-left: 0.15rem;
+  margin-left: 0.3rem;
 }
 
 .unit {

@@ -46,10 +46,6 @@
 
 /* The "order chit" treatment: the cocktail/ingredient name written in
    large display type on an underline, like a bartender's ticket. */
-.nameField {
-  margin-bottom: 1.5rem;
-}
-
 .nameInput {
   display: block;
   width: 100%;

@@ -1,0 +1,30 @@
+.fieldGroup {
+  composes: fieldGroup from "/src/shared/styles/field.module.css";
+}
+
+.legend {
+  composes: legend from "/src/shared/styles/field.module.css";
+}
+
+.rows {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.addRow {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px dashed var(--color-line);
+  color: var(--color-brass-strong);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.9rem;
+}
+
+.addRow:hover {
+  border-color: var(--color-brass);
+  background: var(--color-brass-soft);
+}

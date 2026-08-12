@@ -138,8 +138,9 @@ export async function fetchFilteredIngredients(inputValue){
   const options = []
   let i = 0
   
-  ingredientData.forEach((ingredient) => {
-    const parents = ingredient?.parent_id ? getParentIngredientNames(ingredientData, ingredient.parent_id) : []
+  const ingredientArray = getLocalStorage("ingredientData") || ingredientData
+  ingredientArray.forEach((ingredient) => {
+    const parents = ingredient?.parent_id ? getParentIngredientNames(ingredientArray, ingredient.parent_id) : []
     if(i < 200 && arrayContainsSubstring([...parents, ingredient.name],inputValue)){
       options.push(ingredient)
       i++
@@ -151,7 +152,8 @@ export async function fetchFilteredIngredients(inputValue){
 
 export async function fetchIngredient(ingredientId){
   await new Promise((resolve) => setTimeout(resolve, 1000))
-  const i=ingredientData.find(i => i.id==parseInt(ingredientId))
+  const ingredientArray = getLocalStorage("ingredientData") || ingredientData
+  const i=ingredientArray.find(i => i.id==parseInt(ingredientId))
   return {
     id:i.id,
     name:i.name,
@@ -249,6 +251,8 @@ export async function createCocktail(newCocktail){
     })
   })
   setLocalStorage("drinkIngredientData", drinkContents)
+
+  return newIndex
 }
 
 export async function createIngredient(newIngredient){
@@ -271,7 +275,9 @@ export async function createIngredient(newIngredient){
   ingredientArray.push({
     id: newIndex,
     name: newIngredient.name,
-    parent_id: newIngredient.parentId
+    parent_id: newIngredient.parentId ? newIngredient.parentId : null
   })
   setLocalStorage("ingredientData", ingredientArray)
+
+  return newIndex
 }

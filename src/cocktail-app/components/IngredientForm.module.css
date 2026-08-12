@@ -2,10 +2,6 @@
   composes: panel from "/src/shared/styles/panel.module.css";
 }
 
-.header {
-  composes: panelHeader from "/src/shared/styles/panel.module.css";
-}
-
 .srOnly {
   position: absolute;
   width: 1px;
@@ -19,8 +15,8 @@
 }
 
 .nameField {
-  composes: nameField from "/src/shared/styles/field.module.css";
   flex: 1;
+  padding:1rem 0 1.25rem;
 }
 
 .nameInput {

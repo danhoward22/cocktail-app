@@ -4,12 +4,7 @@ import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
 import { useIngredientCombobox } from "../hooks/useIngredientCombobox"
 import styles from "./IngredientCombobox.module.css"
 
-export function IngredientCombobox({
-  value,
-  onChange,
-  error,
-  label,
-}){
+export function IngredientCombobox({value, onChange, error, label, canDeselect, onCreateIngredient}){
   const {
       isOpen,
       getInputProps,
@@ -19,6 +14,7 @@ export function IngredientCombobox({
       items,
       highlightedIndex,
       selectedItem,
+      selectItem,
       setInputValue,
       loading,
       noResults
@@ -32,7 +28,17 @@ export function IngredientCombobox({
   return (
     <div className={styles.combobox}>
       <div>
-        <label className={styles.label} {...getLabelProps()}>{label}: {selectedItem?.name}</label>
+        <label className={styles.label} {...getLabelProps()}>
+          {label}: {selectedItem?.name ?? (canDeselect && "None")}
+          {canDeselect && selectedItem && (
+            <button 
+              className={styles.deselectButton} 
+              aria-label="clear selection" 
+              type="button" 
+              onClick={() => selectItem(null)}
+            >&#215;</button>
+          )}
+        </label>
         <div className={styles.inputRow}>
           <input
             className={styles.input}
@@ -47,7 +53,6 @@ export function IngredientCombobox({
             onClick={() => {
               setInputValue("")
             }}
-            tabIndex={-1}
           >
             &#215;
           </button>
@@ -58,13 +63,16 @@ export function IngredientCombobox({
         {...getMenuProps()}
       >
           {isOpen &&
-              <List rowComponent={ComboboxRow}
-                rowCount={items.length} 
-                rowHeight={25} 
-                rowProps={{items, selectedItem, highlightedIndex, getItemProps}}
-              />
+            <List rowComponent={ComboboxRow}
+              rowCount={items.length} 
+              rowHeight={25} 
+              rowProps={{items, selectedItem, highlightedIndex, getItemProps}}
+            />
           }
           {isOpen && noResults && <li className={styles.noResults}>No matching ingredients</li>}
+          {isOpen && noResults && onCreateIngredient &&
+            <li className={styles.add} onClick={onCreateIngredient}>Add a New Ingredient</li>
+          }
       </ul>
       <ErrorMessage error={error} />
     </div>
