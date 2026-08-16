@@ -19,10 +19,15 @@
   font-size: 1.5rem;
 }
 
-.close {
+.multiplier, .edit {
+  margin: 0 3px 0 0;
+}
+
+.close, .edit {
   font-family: var(--font-mono);
   color: var(--color-text-dim);
   font-size: .75rem;
+  background: var(--color-surface);
 }
 
 .ingredients {
@@ -30,7 +35,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
-  margin: 0 0 1.5rem;
   padding: 0;
 }
 
@@ -38,7 +42,11 @@
   list-style: none;
   font-family: var(--font-body);
   color: var(--color-verdant);
-  padding-top: 0.15rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px dotted var(--color-line);
 }
 
 .notes {

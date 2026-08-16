@@ -2,8 +2,8 @@ import { UnitSelect } from "../../components/ui/UnitSelect"
 import { useMeasure } from "../../hooks/useMeasure"
 import styles from "./Ingredient.module.css"
 
-export function Ingredient({ingredient}){
-    const [quantity, units, setUnits] = useMeasure(ingredient.qty,ingredient.units)
+export function Ingredient({ingredient, multiplier}){
+    const [quantity, units, setUnits] = useMeasure(ingredient.qty*multiplier,ingredient.units)
     const handleUnitChange = (event) => {
         setUnits(event.target.value)
     }
