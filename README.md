@@ -11,6 +11,7 @@ A React app for browsing classic cocktail recipes: search by name or by ingredie
 - **downshift** — combobox and multiselect elements
 - **react-hook-form + zod** — form validation
 - **react-hot-toast** - form submit notifications
+- **supertokens-auth-react** - authentication service SDK and prebuilt UI
 
 ## Getting Started
 
@@ -30,6 +31,8 @@ Create a `.env` file in the project root:
 
 ```
 VITE_USE_MOCK_API=true
+VITE_API_DOMAIN=<YOUR_API_DOMAIN>
+VITE_WEBSITE_DOMAIN=<YOUR_WEBSITE_DOMAIN>
 ```
 
 `true` uses the built-in mock API, backed by `localStorage`. `false` uses the real API client, which requires further implementation.

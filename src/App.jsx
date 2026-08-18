@@ -1,4 +1,10 @@
 import {createBrowserRouter, RouterProvider} from 'react-router'
+import * as reactRouterDom from "react-router";
+import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
+import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
+import Session, { SessionAuth } from "supertokens-auth-react/recipe/session";
+import { EmailPasswordPreBuiltUI } from 'supertokens-auth-react/recipe/emailpassword/prebuiltui'
+import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 
 import { CocktailAppFrame } from './cocktail-app/components/CocktailAppFrame'
 import { CocktailHome } from './cocktail-app/pages/CocktailHome/CocktailHome'
@@ -11,7 +17,28 @@ import { NotFoundPage } from './NotFoundPage'
 import { cocktailLoader } from './loaders/cocktailLoader'
 import { cocktailListLoader } from './loaders/cocktailListLoader'
 
+SuperTokens.init({
+  appInfo: {
+    // learn more about this on https://supertokens.com/docs/references/frontend-sdks/reference#sdk-configuration
+    appName: "Cocktail App",
+    apiDomain: import.meta.env.VITE_API_DOMAIN,
+    websiteDomain: import.meta.env.VITE_WEBSITE_DOMAIN,
+    apiBasePath: "/auth",
+    websiteBasePath: "/auth",
+  },
+  recipeList: [EmailPassword.init(), Session.init()],
+});
+
+const authRoutes = getSuperTokensRoutesForReactRouterDom(
+  reactRouterDom,
+  [
+    EmailPasswordPreBuiltUI,
+    /* Add your UI recipes here e.g. EmailPasswordPrebuiltUI, PasswordlessPrebuiltUI, ThirdPartyPrebuiltUI */
+  ]
+);
+
 const router = createBrowserRouter([
+		...authRoutes.map((r) => r.props),
   {
     path:"/",
     element: <CocktailAppFrame/>,
@@ -33,26 +60,38 @@ const router = createBrowserRouter([
           },
           {
             path:"/cocktails/:cocktailId/edit",
-            element: <EditCocktailPage/>,
+            element: 
+              <SessionAuth>
+                <EditCocktailPage/>
+              </SessionAuth>,
             loader: cocktailLoader,
           },
         ]
       },
       {
         path:"/new-cocktail",
-        element:<AddCocktailPage/>,
+        element:
+          <SessionAuth>
+            <AddCocktailPage/>
+          </SessionAuth>,
       },
       {
         path:"/new-ingredient",
-        element:<AddIngredientPage/>
+        element:
+          <SessionAuth>
+            <AddIngredientPage/>
+          </SessionAuth>,
       },
     ]
   },
 ])
 
 function App() {
-
-  return <RouterProvider router={router} />
+  return (
+    <SuperTokensWrapper>
+      <RouterProvider router={router} />
+    </SuperTokensWrapper>
+  )
 }
 
 export default App
