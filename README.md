@@ -91,7 +91,7 @@ CSS Modules throughout. Generic, reusable styles (buttons, form fields, page lay
 1. **Secure backend data access**
 2. **Replace the in-memory data source with a real API**
 3. **Favorites list**
-4. **Bulk upload page**
+4. **Personal Recipe Creation**
 
 Additional roadmap items (in no particular order):
 - **Typescript update**
@@ -99,7 +99,9 @@ Additional roadmap items (in no particular order):
 - **Accessibility pass**
 - **Tests**
 - **Clone API in Node**
+- **Clone API in Python**
 - **Clone app in Swift**
+- **Bulk upload page**
 
 ## Copyright and Licensing
 

@@ -3,8 +3,11 @@ import * as reactRouterDom from "react-router";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
 import Session, { SessionAuth } from "supertokens-auth-react/recipe/session";
-import { EmailPasswordPreBuiltUI } from 'supertokens-auth-react/recipe/emailpassword/prebuiltui'
-import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
+import Passwordless from 'supertokens-auth-react/recipe/passwordless';
+import { PasswordlessPreBuiltUI } from 'supertokens-auth-react/recipe/passwordless/prebuiltui';
+import EmailVerification from 'supertokens-auth-react/recipe/emailverification';
+import { EmailVerificationPreBuiltUI } from 'supertokens-auth-react/recipe/emailverification/prebuiltui';
+
 
 import { CocktailAppFrame } from './cocktail-app/components/CocktailAppFrame'
 import { CocktailHome } from './cocktail-app/pages/CocktailHome/CocktailHome'
@@ -26,14 +29,18 @@ SuperTokens.init({
     apiBasePath: "/auth",
     websiteBasePath: "/auth",
   },
-  recipeList: [EmailPassword.init(), Session.init()],
+  recipeList: [
+    Passwordless.init({contactMethod: "EMAIL_OR_PHONE"}),
+    EmailVerification.init({mode: "REQUIRED"}),
+    Session.init()
+  ],
 });
 
 const authRoutes = getSuperTokensRoutesForReactRouterDom(
   reactRouterDom,
   [
-    EmailPasswordPreBuiltUI,
-    /* Add your UI recipes here e.g. EmailPasswordPrebuiltUI, PasswordlessPrebuiltUI, ThirdPartyPrebuiltUI */
+    PasswordlessPreBuiltUI,
+    EmailVerificationPreBuiltUI
   ]
 );
 
