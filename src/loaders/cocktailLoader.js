@@ -1,4 +1,4 @@
-import { fetchCocktail } from "../cocktail-app/services/cocktailApi/cocktailApi.mock";
+import { fetchCocktail } from "../cocktail-app/services/cocktailApi";
 
 export function cocktailLoader({params}){
     const cocktailPromise = fetchCocktail(params.cocktailId)

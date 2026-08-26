@@ -1,0 +1,15 @@
+.page {
+  composes: page from "/src/shared/styles/pageShell.module.css";
+}
+
+.header {
+  composes: header from "/src/shared/styles/formPageHeader.module.css";
+}
+
+.title {
+  composes: title from "/src/shared/styles/formPageHeader.module.css";
+}
+
+.close {
+  composes: close from "/src/shared/styles/formPageHeader.module.css";
+}

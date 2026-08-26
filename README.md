@@ -85,13 +85,16 @@ CSS Modules throughout. Generic, reusable styles (buttons, form fields, page lay
 | `/cocktails/:cocktailId/edit` | Recipe edit form, nested inside the search page |
 | `/new-cocktail`               | Add new cocktail form                           |
 | `/new-ingredient`             | Add new ingredient form                         |
+| `/admin`                      | Admin panel                                     |
 
 ## Development roadmap
 
-1. **Secure backend data access**
+1. **Update data loading to use Tanstack Query**
 2. **Replace the in-memory data source with a real API**
-3. **Favorites list**
-4. **Personal Recipe Creation**
+3. **Add User role functionality to SuperTokens**
+4. **Add Create User page to generate invite links**
+5. **Favorites list**
+6. **Personal Recipe Creation**
 
 Additional roadmap items (in no particular order):
 - **Typescript update**
@@ -99,7 +102,6 @@ Additional roadmap items (in no particular order):
 - **Accessibility pass**
 - **Tests**
 - **Clone API in Node**
-- **Clone API in Python**
 - **Clone app in Swift**
 - **Bulk upload page**
 
