@@ -52,7 +52,7 @@ function parseCocktailObject(drink, contents, ingredientArray){
 }
 
 // async function fetchCocktailObjectList(){
-//   await new Promise((resolve) => setTimeout(resolve, 1000));
+//   await new Promise((resolve) => setTimeout(resolve, 1000))
 //   const cocktailList = []
 
 //   try{
@@ -76,7 +76,7 @@ function parseCocktailObject(drink, contents, ingredientArray){
 // }
 
 export async function fetchCocktailList(){
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000))
   const cocktailList = []
 
   try{
@@ -117,7 +117,7 @@ export async function fetchCocktailList(){
 }
 
 export async function fetchCocktail(id){
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000))
   try{
     const drinkArray = getLocalStorage("drinkData") || drinkData
     const ingredientArray = getLocalStorage("ingredientData") || ingredientData
@@ -134,7 +134,7 @@ export async function fetchCocktail(id){
 }
 
 export async function fetchFilteredIngredients(inputValue){
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000))
   const options = []
   let i = 0
   
@@ -203,22 +203,22 @@ export async function createCocktail(newCocktail){
       }
 
       if(sameRecipe){
-        const error = new Error("Identical recipe already exists");
-        //error.status = response.status; // Attach custom metadata
-        //error.info = errorData;
-        throw error;
+        const error = new Error("Identical recipe already exists")
+        //error.status = response.status // Attach custom metadata
+        //error.info = errorData
+        throw error
       }
     }
     //check for source
     if(newCocktail.source=="" || existingSource.toLowerCase() == newCocktail.source.toLowerCase()){
-        const error = new Error("Same cocktail name exists. Edit name or source to differentiate");
-        //error.status = response.status; // Attach custom metadata
-        //error.info = errorData;
-        throw error;
+        const error = new Error("Same cocktail name exists. Edit name or source to differentiate")
+        //error.status = response.status // Attach custom metadata
+        //error.info = errorData
+        throw error
     }
   }
 
-  let newIndex=0;
+  let newIndex=0
   drinkArray.forEach(d => {
     if(d.id > newIndex) newIndex = d.id
   })
@@ -260,15 +260,15 @@ export async function createIngredient(newIngredient){
 
   const ingredientArray = getLocalStorage("ingredientData") || ingredientData
   if(ingredientArray.some(i => i.name.toLowerCase()===newIngredient.name.toLowerCase())){
-    const error = new Error("Ingredient already exists");
-    //error.status = response.status; // Attach custom metadata
-    //error.info = errorData;
-    throw error;
+    const error = new Error("Ingredient already exists")
+    //error.status = response.status // Attach custom metadata
+    //error.info = errorData
+    throw error
   }
 
-  let newIndex=0;
+  let newIndex=0
   ingredientArray.forEach(i => {
-    if(i.id > newIndex) newIndex = i.id;
+    if(i.id > newIndex) newIndex = i.id
   })
   newIndex++
 

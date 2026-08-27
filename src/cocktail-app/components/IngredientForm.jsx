@@ -14,7 +14,6 @@ export function IngredientForm({onSubmitSuccess}){
         register,
         errors,
         isSubmitting,
-        isSubmitSuccessful,
         handleIngredientSubmit,
     } = useIngredientForm(onSubmitSuccess)
 

@@ -1,6 +1,6 @@
-import { fetchCocktailList } from "../cocktail-app/services/cocktailApi";
+import { queryClient } from "../queryClient"
+import { cocktailListQueryOptions } from "../cocktail-app/queries/cocktailQueries"
 
 export function cocktailListLoader(){
-    const cocktailsPromise = fetchCocktailList()
-    return {cocktailsPromise}
+  queryClient.query(cocktailListQueryOptions())
 }

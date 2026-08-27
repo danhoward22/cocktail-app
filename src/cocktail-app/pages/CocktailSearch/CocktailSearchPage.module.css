@@ -17,33 +17,16 @@
   gap: .5rem;
 }
 
-.loading {
-  composes: loading from "/src/shared/styles/pageShell.module.css";
+.error {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
-.loadingText {
-  composes: loadingText from "/src/shared/styles/pageShell.module.css";
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .loading {
-    animation: pulse 1.6s ease-in-out infinite;
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-/* When a cocktail is selected, the list and the detail card split the
-   remaining vertical space (2/3 detail, 1/3 list), and both stay the same
-   width since they're stretched siblings in this flex column. */
 .detail {
   flex: 2;
   min-height: 0;

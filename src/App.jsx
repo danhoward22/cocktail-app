@@ -1,5 +1,6 @@
 import {createBrowserRouter, RouterProvider} from 'react-router'
 import * as reactRouterDom from "react-router"
+import { QueryClientProvider } from '@tanstack/react-query'
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react"
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui"
 import Session, { SessionAuth } from "supertokens-auth-react/recipe/session"
@@ -17,6 +18,7 @@ import { AdminPage } from './cocktail-app/pages/AdminPage/AdminPage'
 import { NotFoundPage } from './NotFoundPage'
 import { cocktailLoader } from './loaders/cocktailLoader'
 import { cocktailListLoader } from './loaders/cocktailListLoader'
+import { queryClient } from './queryClient'
 
 SuperTokens.init({
   appInfo: {
@@ -98,7 +100,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <SuperTokensWrapper>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </SuperTokensWrapper>
   )
 }

@@ -12,6 +12,7 @@ A React app for browsing classic cocktail recipes: search by name or by ingredie
 - **react-hook-form + zod** — form validation
 - **react-hot-toast** - form submit notifications
 - **supertokens-auth-react** - authentication service SDK and prebuilt UI
+- **tanstack query** - data fetching
 
 ## Getting Started
 
@@ -59,6 +60,7 @@ src/
 │ ├─data/          # Mock data files
 │ ├─hooks/         # Cocktail app custom hooks
 │ ├─pages/         # Page specific components organized into subfolders
+│ ├─queries/       # Tanstack Query Options
 │ ├─schemas/       # Zod schemas
 │ ├─services/
 │ │ └─cocktailApi/ # Real and mock API fetch functions
@@ -70,6 +72,7 @@ src/
 │ ├─hooks/         # useDeferredQuery
 │ ├─styles/        # Reusable generic css modules
 │ └─utils/         # arrayUtils, localStorageUtils, mathUtils
+├─queryClient.js   # Tanstack Query singleton queryClient for use in App.jsx and loaders
 └─App.jsx          # router setup
 ```
 

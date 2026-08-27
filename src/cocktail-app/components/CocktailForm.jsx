@@ -1,4 +1,4 @@
-import { use, useState } from "react"
+import { useState } from "react"
 import { IngredientFieldset } from "./IngredientFieldset"
 import { IngredientForm } from "./IngredientForm"
 import Modal from "/src/shared/components/Modal"
@@ -8,8 +8,7 @@ import CancelButton from "/src/shared/components/ui/CancelButton"
 import { useCocktailForm } from "../hooks/useCocktailForm"
 import styles from "./CocktailForm.module.css"
 
-export function CocktailForm({cancelPath, cocktailPromise}){
-    const cocktail = cocktailPromise ? use(cocktailPromise) : null
+export function CocktailForm({cocktail, cancelPath}){
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [fieldToUpdate, setFieldToUpdate] = useState(null)
 
@@ -19,7 +18,6 @@ export function CocktailForm({cancelPath, cocktailPromise}){
         setValue,
         errors,
         isSubmitting,
-        isSubmitSuccessful,
         handleCocktailSubmit,
         ingredientFieldArray,
         garnishFieldArray,

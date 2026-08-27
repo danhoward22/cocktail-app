@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useCombobox } from "downshift";
 
+import { useDebouncedValue } from "/src/shared/hooks/useDebouncedValue";
 import { fetchIngredient, fetchFilteredIngredients } from "../services/cocktailApi";
 
 export function useIngredientCombobox({initialId, onChange}){
@@ -9,87 +10,88 @@ export function useIngredientCombobox({initialId, onChange}){
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(false)
   const isSelectingRef = useRef(false)
+  const debouncedValue = useDebouncedValue(inputValue)
 
-    const combobox = useCombobox({
-        inputValue,
-        onInputValueChange({ inputValue: newInputValue }) {
-          setInputValue(newInputValue || '');
-        },
-        items,
-        itemToString(item) {
-            return item ? item.name : ''
-        },
-        selectedItem,
-        onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
-          setSelectedItem(newSelectedItem || null)
-          onChange(newSelectedItem?.id || 0)
-        },
-        onStateChange: ({ type }) => {
-          if (
-            type === useCombobox.stateChangeTypes.ItemClick ||
-            type === useCombobox.stateChangeTypes.InputKeyDownEnter
-          ) {
-            isSelectingRef.current = true
-          }
-        },
-    })
-
-    useEffect(() => {
-      let active = true
-
-      async function loadInitialData() {
-        if(!initialId) {
-          setSelectedItem(null)
-          setInputValue("")
-          return
-        }
-        try{
-          const ingredient = await fetchIngredient(initialId)
-          if(active && ingredient){
-            setSelectedItem(ingredient);
-            setInputValue(ingredient.name || "")
-          }
-        }catch(e){
-          console.error(`Failed to load ingredient ID ${initialId}: `,e)
-        }
+  const combobox = useCombobox({
+    inputValue,
+    onInputValueChange({ inputValue: newInputValue }) {
+      setInputValue(newInputValue || '');
+    },
+    items,
+    itemToString(item) {
+        return item ? item.name : ''
+    },
+    selectedItem,
+    onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
+      setSelectedItem(newSelectedItem || null)
+      onChange(newSelectedItem?.id || 0)
+    },
+    onStateChange: ({ type }) => {
+      if (
+        type === useCombobox.stateChangeTypes.ItemClick ||
+        type === useCombobox.stateChangeTypes.InputKeyDownEnter
+      ) {
+        isSelectingRef.current = true
       }
+    },
+  })
 
-      loadInitialData();
-      return () => {active=false}
-    },[initialId])
+  useEffect(() => {
+    let active = true
 
-    useEffect(() => {
-      if (isSelectingRef.current) {
-        isSelectingRef.current = false
+    async function loadInitialData() {
+      if(!initialId) {
+        setSelectedItem(null)
+        setInputValue("")
         return
       }
-      if (!inputValue) {
-        setItems([])
-        setLoading(false)
-        return
-      }
-
-      let active = true
-      setLoading(true)
-
-      const timer = setTimeout(async () => {
-        try {
-          const response = await fetchFilteredIngredients(inputValue)
-          if(active) setItems(response || []);
-        } catch (error) {
-          console.error('Fetch failed:', error);
-        } finally {
-          if(active) setLoading(false);
+      try{
+        const ingredient = await fetchIngredient(initialId)
+        if(active && ingredient){
+          setSelectedItem(ingredient);
+          setInputValue(ingredient.name || "")
         }
-      }, 300);
-
-      return () => {
-        active=false
-        clearTimeout(timer);
+      }catch(e){
+        console.error(`Failed to load ingredient ID ${initialId}: `,e)
       }
-    }, [inputValue]);
+    }
 
-    const noResults = items.length === 0 && !loading && !!inputValue;
+    loadInitialData();
+    return () => {active=false}
+  },[initialId])
 
-    return {...combobox, items, loading, noResults}
+  useEffect(() => {
+    if (isSelectingRef.current) {
+      isSelectingRef.current = false
+      return
+    }
+    if (!inputValue) {
+      setItems([])
+      setLoading(false)
+      return
+    }
+
+    let active = true
+    setLoading(true)
+
+    const timer = setTimeout(async () => {
+      try {
+        const response = await fetchFilteredIngredients(inputValue)
+        if(active) setItems(response || []);
+      } catch (error) {
+        console.error('Fetch failed:', error);
+      } finally {
+        if(active) setLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      active=false
+      clearTimeout(timer);
+    }
+  }, [inputValue]);
+
+  const noResults = items.length === 0 && !loading && !!inputValue;
+
+  return {...combobox, items, loading, noResults}
 }

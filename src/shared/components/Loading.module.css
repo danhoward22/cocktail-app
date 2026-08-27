@@ -1,0 +1,43 @@
+.loading {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.loadingText {
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+}
+
+.primary {
+  flex: 1;
+  padding: 2rem;
+}
+
+.secondary {
+  flex: 2;
+  border-top: 3px solid var(--color-brass);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loading {
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

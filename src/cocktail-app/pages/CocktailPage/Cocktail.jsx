@@ -1,4 +1,4 @@
-import { useRef, useState, use } from "react"
+import { useRef, useState } from "react"
 import { Link } from "react-router"
 
 import { Garnishes } from "./Garnishes"
@@ -8,16 +8,7 @@ import styles from "./Cocktail.module.css"
 
 const multipliers = [.5,1,2,3,4,5,6,7,8,9]
 
-export function Cocktail({cocktailPromise}){
-    const cocktail = use(cocktailPromise)
-
-    if(!cocktail){ return(
-        <div className={styles.card}>
-            <p>Cocktail not found</p>
-            <Link to='/cocktails' className={styles.close}>Close</Link>
-        </div>
-    )}
-
+export function Cocktail({cocktail}){
     const [isScrolled, setIsScrolled] = useState(false)
     const [multiplier, setMultiplier] = useState(1)
     const cardRef = useRef(null)
