@@ -39,7 +39,6 @@ export function CocktailSearchPage() {
     const filteredCocktails = filterCocktails(cocktails, deferredQuery, searchBy)
     listMarkup = <CocktailList cocktails={filteredCocktails}/>
   }
-          
 
   return (
     <div className={styles.page}>

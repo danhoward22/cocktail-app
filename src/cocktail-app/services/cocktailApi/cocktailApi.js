@@ -33,6 +33,10 @@ export async function fetchCocktail(cocktailId){
 
 }
 
+export async function createCocktail(newCocktail){}
+
+export async function updateCocktail(cocktail){}
+
 export async function fetchFilteredIngredients(inputValue){
 //   const response = await fetch(`/api/ingredients`);
 //  set inputValue filter string
@@ -41,6 +45,6 @@ export async function fetchFilteredIngredients(inputValue){
 
 export async function fetchIngredient(ingredientId){}
 
-export async function createCocktail(newCocktail){}
-
 export async function createIngredient(newIngredient){}
+
+export async function updateIngredient(ingredient){}

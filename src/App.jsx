@@ -1,6 +1,6 @@
 import {createBrowserRouter, RouterProvider} from 'react-router'
 import * as reactRouterDom from "react-router"
-import { QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react"
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui"
 import Session, { SessionAuth } from "supertokens-auth-react/recipe/session"
@@ -18,7 +18,6 @@ import { AdminPage } from './cocktail-app/pages/AdminPage/AdminPage'
 import { NotFoundPage } from './NotFoundPage'
 import { cocktailLoader } from './loaders/cocktailLoader'
 import { cocktailListLoader } from './loaders/cocktailListLoader'
-import { queryClient } from './queryClient'
 
 SuperTokens.init({
   appInfo: {
@@ -41,6 +40,8 @@ const authRoutes = getSuperTokensRoutesForReactRouterDom(
   ]
 )
 
+const queryClient = new QueryClient()
+
 const router = createBrowserRouter([
 		...authRoutes.map((r) => r.props),
   {
@@ -50,17 +51,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true, 
-        element: <CocktailHome/>
+        element: <CocktailHome/>,
       },
       {
         path:"/cocktails",
         element: <CocktailSearchPage/>,
-        loader: cocktailListLoader,
+        loader: cocktailListLoader(queryClient),
         children: [
           {
             path:"/cocktails/:cocktailId",
             element: <CocktailPage/>,
-            loader: cocktailLoader,
+            loader: cocktailLoader(queryClient),
           },
           {
             path:"/cocktails/:cocktailId/edit",
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
               <SessionAuth>
                 <EditCocktailPage/>
               </SessionAuth>,
-            loader: cocktailLoader,
+            loader: cocktailLoader(queryClient),
           },
         ]
       },

@@ -1,97 +1,56 @@
 import { useState, useEffect, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useCombobox } from "downshift";
 
 import { useDebouncedValue } from "/src/shared/hooks/useDebouncedValue";
-import { fetchIngredient, fetchFilteredIngredients } from "../services/cocktailApi";
+import { ingredientQueryOptions, ingredientSearchQueryOptions } from "../queries/ingredientQueries"
 
 export function useIngredientCombobox({initialId, onChange}){
-  const [inputValue, setInputValue] = useState('')
-  const [selectedItem, setSelectedItem] = useState(null)
-  const [items, setItems] = useState([])
-  const [loading, setLoading] = useState(false)
-  const isSelectingRef = useRef(false)
-  const debouncedValue = useDebouncedValue(inputValue)
+  const [filterValue, setFilterValue] = useState('')
+  const [selectedIngredient, setSelectedIngredient] = useState(null)
+  const skipSearchRef = useRef()
+  const debouncedValue = useDebouncedValue(filterValue)
+  
+  const {
+    data: initialIngredient,
+  } = useQuery(ingredientQueryOptions(initialId))
+
+  const {
+    data: items = [],
+    isLoading,
+    isSuccess,
+  } = useQuery(ingredientSearchQueryOptions(debouncedValue, debouncedValue !== skipSearchRef.current))
 
   const combobox = useCombobox({
-    inputValue,
-    onInputValueChange({ inputValue: newInputValue }) {
-      setInputValue(newInputValue || '');
+    inputValue: filterValue,
+    onInputValueChange({ inputValue }) {
+      setFilterValue(inputValue || '')
     },
     items,
     itemToString(item) {
-        return item ? item.name : ''
+      return item?.name ?? ''
     },
-    selectedItem,
-    onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
-      setSelectedItem(newSelectedItem || null)
-      onChange(newSelectedItem?.id || 0)
-    },
-    onStateChange: ({ type }) => {
-      if (
-        type === useCombobox.stateChangeTypes.ItemClick ||
-        type === useCombobox.stateChangeTypes.InputKeyDownEnter
-      ) {
-        isSelectingRef.current = true
-      }
+    selectedItem: selectedIngredient,
+    onSelectedItemChange: ({ selectedItem }) => {
+      setSelectedIngredient(selectedItem || null)
+      onChange(selectedItem?.id || 0)
+      skipSearchRef.current = selectedItem?.name ?? null
     },
   })
 
+  //sets the initial ingredient
   useEffect(() => {
-    let active = true
-
-    async function loadInitialData() {
-      if(!initialId) {
-        setSelectedItem(null)
-        setInputValue("")
-        return
-      }
-      try{
-        const ingredient = await fetchIngredient(initialId)
-        if(active && ingredient){
-          setSelectedItem(ingredient);
-          setInputValue(ingredient.name || "")
-        }
-      }catch(e){
-        console.error(`Failed to load ingredient ID ${initialId}: `,e)
-      }
+    if (!initialId) {
+      setSelectedIngredient(null)
+      setFilterValue("")
+    }else if (initialIngredient) {
+      setSelectedIngredient(initialIngredient)
+      setFilterValue(initialIngredient.name || "")
+      skipSearchRef.current = initialIngredient.name
     }
+  }, [initialIngredient, initialId])
 
-    loadInitialData();
-    return () => {active=false}
-  },[initialId])
+  const noResults = !isLoading && isSuccess && items.length === 0
 
-  useEffect(() => {
-    if (isSelectingRef.current) {
-      isSelectingRef.current = false
-      return
-    }
-    if (!inputValue) {
-      setItems([])
-      setLoading(false)
-      return
-    }
-
-    let active = true
-    setLoading(true)
-
-    const timer = setTimeout(async () => {
-      try {
-        const response = await fetchFilteredIngredients(inputValue)
-        if(active) setItems(response || []);
-      } catch (error) {
-        console.error('Fetch failed:', error);
-      } finally {
-        if(active) setLoading(false);
-      }
-    }, 300);
-
-    return () => {
-      active=false
-      clearTimeout(timer);
-    }
-  }, [inputValue]);
-
-  const noResults = items.length === 0 && !loading && !!inputValue;
-
-  return {...combobox, items, loading, noResults}
+  return {...combobox, items, loading: isLoading, noResults}
 }

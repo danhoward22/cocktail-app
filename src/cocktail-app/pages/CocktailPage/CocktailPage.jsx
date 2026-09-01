@@ -11,12 +11,12 @@ export function CocktailPage() {
   const {cocktailId} = useParams()
   const {
     data: cocktail,
-    isPending,
+    isLoading,
     isError,
     error
   } = useQuery(cocktailQueryOptions(cocktailId))
 
-  if (isPending) return <Loading message="Loading Cocktail..." variant="secondary" />
+  if (isLoading) return <Loading message="Loading Cocktail..." variant="secondary" />
   if (isError) return <ErrorOutlet message={error ? error.message : "Cocktail not found"} cancelPath="/cocktails"/>
 
   return (

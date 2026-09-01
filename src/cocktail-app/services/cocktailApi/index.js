@@ -7,8 +7,10 @@ const api = useMock ? mockApi : realApi;
 export const { 
     fetchCocktailList,
     fetchCocktail,
+    createCocktail,
+    updateCocktail,
     fetchFilteredIngredients,
     fetchIngredient,
-    createCocktail,
-    createIngredient
+    createIngredient,
+    updateIngredient,
 } = api;

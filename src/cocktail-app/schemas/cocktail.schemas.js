@@ -8,7 +8,7 @@ export const cocktailSchema = z.object({
     ingredients: z.array(
         z.object({
             id: z.number().min(1, "Select an ingredient"),
-            qty: z.string().trim().min(1,"Enter a quantity").refine(
+            qty: z.union([z.string().trim().min(1,"Enter a quantity"),z.number()]).refine(
                 (val) => isValidQuantity(val),
                 { message: "Quantity must be a positive decimal or fraction." }
             ),
@@ -21,7 +21,7 @@ export const cocktailSchema = z.object({
     garnishes: z.array(
         z.object({
             id: z.number().min(1, "Select a garnish"),
-            qty: z.string().trim().min(1,"Enter a quantity").refine(
+            qty: z.union([z.string().trim().min(1,"Enter a quantity"),z.number()]).refine(
                 (val) => isValidQuantity(val),
                 { message: "Quantity must be a positive decimal or fraction." }
             ),

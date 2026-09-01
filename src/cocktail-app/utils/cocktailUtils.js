@@ -29,7 +29,12 @@ export function getDefaultIngredient(){
     id: 0,
     name: "",
     parents: [],
+    parentId: null,
     qty: 0,
     units: "oz"
   }
+}
+
+export function isValidId(id){
+  return id>0 && Number.isInteger(parseFloat(id))
 }
