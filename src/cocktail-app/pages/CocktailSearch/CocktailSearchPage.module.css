@@ -2,10 +2,6 @@
   composes: page from "/src/shared/styles/pageShell.module.css";
 }
 
-.header {
-  composes: header from "/src/shared/styles/formPageHeader.module.css";
-}
-
 .title {
   composes: title from "/src/shared/styles/formPageHeader.module.css";
 }
@@ -13,6 +9,7 @@
 .searchControls {
   display: flex;
   flex-direction: row;
+  align-items: center;
   flex: 0;
   gap: .5rem;
 }

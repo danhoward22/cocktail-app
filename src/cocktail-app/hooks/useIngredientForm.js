@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import toast from "react-hot-toast"
 
-import { createIngredient } from "../services/cocktailApi"
+import { createIngredient, updateIngredient } from "../services/cocktailApi"
 import { ingredientSchema } from "../schemas/ingredient.schemas"
+import { ingredientKeys } from "../queries/ingredientQueries"
+import { useRecipeMutation } from "./useRecipeMutation"
 
-export function useIngredientForm(onSubmitSuccess){
+export function useIngredientForm(ingredient, onSubmitSuccess){
     const navigate = useNavigate()
 
     const {
@@ -23,6 +24,11 @@ export function useIngredientForm(onSubmitSuccess){
         },
     })
 
+    const {
+        createMutation,
+        updateMutation
+    } = useRecipeMutation(ingredientKeys, createIngredient, updateIngredient)
+
     const onSubmit = async (data) => {
         console.log(data)
         try{
@@ -30,16 +36,29 @@ export function useIngredientForm(onSubmitSuccess){
                 name: data.ingredientName,
                 parentId: data.parentId
             }
-            const newIngredientId = await createIngredient(newIngredient)
-            toast(`Ingredient ${data.ingredientName} created`)
-            if(onSubmitSuccess){
-                onSubmitSuccess(newIngredientId)
-            }else{
+
+            if(ingredient){
+                console.log(`update ${newIngredient.name} (${ingredient.id}): `, newIngredient)
+                await updateMutation({id:ingredient.id, ...newIngredient})
+                //navigate(`/ingredients/${ingredient.id}`)
                 navigate("/");
+            }else{
+                console.log("new cocktail: ", newIngredient)
+                const {id:newIngredientId} = await createMutation(newIngredient)
+                if(onSubmitSuccess){
+                    onSubmitSuccess(newIngredientId)
+                }else{
+                    //navigate(`/ingredients/${newIngredientId}`)
+                    navigate("/");
+                }
             }
-        }catch(e){
-            setError("root", {message: `Submit failed! - ${e.message}`})
-            console.error(e)
+        }catch(err){
+            let messages = `Submit failed! - ${err.message}`
+            if(err instanceof AggregateError){
+                messages += `:\n` + err.errors.map(e => `- ${e.message}`).join("\n")
+            }
+            setError("root", {message: messages})
+            console.error(messages)
         }
     }
 

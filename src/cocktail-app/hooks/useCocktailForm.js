@@ -1,19 +1,15 @@
-import { useRef } from "react"
 import { useNavigate } from "react-router"
 import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useQueryClient, useMutation } from "@tanstack/react-query"
-import toast from "react-hot-toast"
 
 import { createCocktail, updateCocktail } from "../services/cocktailApi"
 import { cocktailSchema } from "../schemas/cocktail.schemas"
 import { fractionToDecimal } from "../utils/unitUtils"
 import { cocktailKeys } from "../queries/cocktailQueries"
+import { useRecipeMutation } from "./useRecipeMutation"
 
 export function useCocktailForm(cocktail){
     const navigate = useNavigate()
-    const queryClient = useQueryClient()
-    const persistToastId = useRef()
 
     const defaultCocktail = cocktail ?
         {
@@ -62,49 +58,10 @@ export function useCocktailForm(cocktail){
         name: "garnishes",
     });
 
-    function clearPersistentToast(){
-        if(persistToastId.current){
-            toast.dismiss(persistToastId.current)
-            persistToastId.current = null
-        }
-    }
-
-    const {mutateAsync: createMutation } = useMutation({
-        mutationFn: createCocktail,
-        onMutate: () => {
-            persistToastId.current = toast("Saving...", { duration: 3000 })
-        },
-        onSuccess: (result) => {
-            queryClient.setQueryData(cocktailKeys.detail(result.id), result)
-            queryClient.invalidateQueries({ queryKey: cocktailKeys.lists() })
-            toast.success(`${result.name} saved!`)
-        },
-        onError: (error, variables) => {
-            toast.error(`${variables.name} failed to save: ${error.message}`)
-        },
-        onSettled: () => {
-            clearPersistentToast()
-        }
-    })
-
-    const {mutateAsync: updateMutation } = useMutation({
-        mutationFn: (newCocktail) => updateCocktail(newCocktail),
-        onMutate: () => {
-            persistToastId.current = toast("Saving...", { duration: 5000 })
-        },
-        onSuccess: (result) => {
-            queryClient.setQueryData(cocktailKeys.detail(result.id), result)
-            //queryClient.invalidateQueries({ queryKey: cocktailKeys.detail(result.id) })
-            queryClient.invalidateQueries({ queryKey: cocktailKeys.lists() })
-            toast.success(`${result.name} saved!`)
-        },
-        onError: (error, variables) => {
-            toast.error(`${variables.name} failed to update: ${error.message}`)
-        },
-        onSettled: () => {
-            clearPersistentToast()
-        }
-    })
+    const {
+        createMutation,
+        updateMutation
+    } = useRecipeMutation(cocktailKeys, createCocktail, updateCocktail)
 
     const onSubmit = async (data) => {
         try{
@@ -126,7 +83,7 @@ export function useCocktailForm(cocktail){
                 navigate(`/cocktails/${cocktail.id}`)
             }else{
                 console.log("new cocktail: ", newCocktail)
-                const newCocktailId = await createMutation(newCocktail)
+                const {id: newCocktailId} = await createMutation(newCocktail)
                 navigate(`/cocktails/${newCocktailId}`)
             }
         }catch(err){

@@ -7,7 +7,7 @@ import { useIngredientForm } from "../hooks/useIngredientForm"
 
 import styles from "./IngredientForm.module.css"
 
-export function IngredientForm({onSubmitSuccess}){
+export function IngredientForm({ingredient, onSubmitSuccess}){
 
     const {
         control,
@@ -15,7 +15,7 @@ export function IngredientForm({onSubmitSuccess}){
         errors,
         isSubmitting,
         handleIngredientSubmit,
-    } = useIngredientForm(onSubmitSuccess)
+    } = useIngredientForm(ingredient, onSubmitSuccess)
 
     return(
         <form className={styles.form} onSubmit={handleIngredientSubmit} noValidate>

@@ -42,9 +42,6 @@ export function CocktailSearchPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Cocktails</h1>
-      </div>
       <div className={styles.searchControls}>
         <CocktailSearchBar query={query} setQuery={setQuery} />
         <CocktailSearchToggle searchBy={searchBy} setSearchBy={setSearchBy}/>

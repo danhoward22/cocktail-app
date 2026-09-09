@@ -337,7 +337,7 @@ function validateIngredient(ingredient, ingredientArr = null, forUpdate = false)
   //validate name
   if(!ingredient.name){
     propErrors.push(new Error("Ingredient name is missing."))
-  }else if(objectNameExists(obj.name, objArray)){
+  }else if(objectNameExists(ingredient.name, ingredientArray)){
     propErrors.push(new Error(`Ingredient already exists.`))
   }
 
