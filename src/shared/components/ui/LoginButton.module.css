@@ -1,0 +1,17 @@
+.button {
+  background: var(--color-brass);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.button:hover {
+  background: var(--color-brass-strong);
+  border-color: transparent;
+}
+
+.link {
+  border: none;
+  background: none;
+  padding:0;
+  border-radius: 0;
+}

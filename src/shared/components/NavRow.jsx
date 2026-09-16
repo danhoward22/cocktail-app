@@ -1,19 +1,23 @@
 import { Link, useLocation } from 'react-router';
 
-export function NavRow({ index, style, items, renderItem, customStyles, renderPath }) {
+export function NavRow({ index, style, items, renderItem, className, renderPath, disableLinks = false }) {
   const item = items[index]
-  const location = useLocation();
+  const location = useLocation()
   const path = renderPath(item.id)
-  const isActive = location.pathname === path;
+  const isActive = location.pathname === path
+  const content = renderItem ? renderItem(item) : item.name
 
   return (
     <div style={style}>
-      <Link
+      {!disableLinks && <Link
         to={path} 
-        className={`${customStyles.link} nav-item ${isActive ? 'active' : ''}`}
+        className={`${className} ${isActive ? 'active' : ''}`}
       >
-        {renderItem ? renderItem(item) : item.name}
-      </Link>
+        {content}
+      </Link>}
+      {disableLinks && <div className={className}>
+        {content}
+      </div>}
     </div>
   );
 };

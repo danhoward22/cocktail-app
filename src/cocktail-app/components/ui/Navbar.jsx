@@ -1,7 +1,10 @@
 import { NavLink } from "react-router";
 import styles from "./Navbar.module.css"
+import { useSessionContext } from "supertokens-auth-react/recipe/session"
+import { LoginButton } from "/src/shared/components/ui/LoginButton"
 
 export function Navbar() {
+  const {doesSessionExist} = useSessionContext()
   const linkClassName = ({isActive}) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
 
   return (
@@ -13,14 +16,17 @@ export function Navbar() {
         <li>
           <NavLink to="/cocktails" className={linkClassName}>Cocktails</NavLink>
         </li>
-        <li>
+        {doesSessionExist && <li>
           <NavLink to="/new-cocktail" className={linkClassName}>Add Cocktail</NavLink>
-        </li>
+        </li>}
         <li>
           <NavLink to="/ingredients" className={linkClassName}>Ingredients</NavLink>
         </li>
-        <li>
+        {doesSessionExist && <li>
           <NavLink to="/new-ingredient" className={linkClassName}>Add Ingredient</NavLink>
+        </li>}
+        <li>
+          <LoginButton className={styles.navLink} variant="link"/>
         </li>
       </ul>
     </nav>

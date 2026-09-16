@@ -26,7 +26,9 @@ export function CocktailList({cocktails}) {
 
   return (
     <div className={styles.list}>
-      <VirtualNavList items={cocktails} rowHeight={56} styles={styles} renderItem={renderItem} renderPath={renderPath}/>
+      <VirtualNavList items={cocktails} rowHeight={56} rowClassName={styles.link}
+        renderItem={renderItem} renderPath={renderPath}
+      />
     </div>
   )
 }

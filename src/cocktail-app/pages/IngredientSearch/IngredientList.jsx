@@ -1,7 +1,9 @@
 import { VirtualNavList } from '/src/shared/components/VirtualNavList'
 import styles from './IngredientList.module.css'
+import { useSessionContext } from 'supertokens-auth-react/recipe/session'
 
-export function IngredientList({ingredients}) {  
+export function IngredientList({ingredients}) {
+  const {doesSessionExist} = useSessionContext()
   if(ingredients.length===0){
     return (
       <div className={styles.list}>
@@ -22,7 +24,11 @@ export function IngredientList({ingredients}) {
 
   return (
     <div className={styles.list}>
-      <VirtualNavList items={ingredients} rowHeight={56} styles={styles} renderItem={renderItem} renderPath={renderPath}/>
+      <VirtualNavList
+        items={ingredients} rowHeight={56} rowClassName={styles.link}
+        renderItem={renderItem} renderPath={renderPath}
+        disableLinks={!doesSessionExist}
+      />
     </div>
   )
 }
