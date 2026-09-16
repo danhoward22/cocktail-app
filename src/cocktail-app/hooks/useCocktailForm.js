@@ -11,7 +11,7 @@ import { useRecipeMutation } from "./useRecipeMutation"
 export function useCocktailForm(cocktail){
     const navigate = useNavigate()
 
-    const defaultCocktail = cocktail ?
+    const currentCocktail = cocktail ?
         {
             cocktailId: cocktail.id,
             cocktailName: cocktail.name,
@@ -20,13 +20,13 @@ export function useCocktailForm(cocktail){
         }
         : {cocktailName:"", sources:"", notes:""}
 
-    const defaultIngredients = cocktail ? 
+    const currentIngredients = cocktail ? 
         cocktail.ingredients.map((ingredient) => {
             return {id:ingredient.id, qty:ingredient.qty, units:ingredient.units}
         })
         : [{id:0, qty:"", units:"oz"}]
     
-    const defaultGarnishes = cocktail ? 
+    const currentGarnishes = cocktail ? 
         cocktail.garnishes.map((garnish) => {
             return {id:garnish.id, qty:garnish.qty}
         })
@@ -41,10 +41,10 @@ export function useCocktailForm(cocktail){
         formState: {errors, isSubmitting, isSubmitSuccessful}
     } = useForm({
         resolver:zodResolver(cocktailSchema),
-        defaultValues:{
-            ...defaultCocktail,
-            ingredients: defaultIngredients,
-            garnishes: defaultGarnishes,
+        values:{
+            ...currentCocktail,
+            ingredients: currentIngredients,
+            garnishes: currentGarnishes,
         },
     })
 

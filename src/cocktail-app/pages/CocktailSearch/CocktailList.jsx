@@ -1,7 +1,7 @@
 import { VirtualNavList } from '/src/shared/components/VirtualNavList'
 import styles from './CocktailList.module.css'
 
-export function CocktailList({cocktails}) {  
+export function CocktailList({cocktails}) {
   if(cocktails.length===0){
     return (
       <div className={styles.list}>
@@ -21,10 +21,12 @@ export function CocktailList({cocktails}) {
       </>
     )
   }
+  
+  const renderPath = (id) => (`/cocktails/${id}`)
 
   return (
     <div className={styles.list}>
-      <VirtualNavList items={cocktails} rowHeight={56} styles={styles} renderItem={renderItem} pathPrefix="/cocktails/"/>
+      <VirtualNavList items={cocktails} rowHeight={56} styles={styles} renderItem={renderItem} renderPath={renderPath}/>
     </div>
   )
 }

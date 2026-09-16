@@ -11,13 +11,17 @@ import { CocktailAppFrame } from './cocktail-app/components/CocktailAppFrame'
 import { CocktailHome } from './cocktail-app/pages/CocktailHome/CocktailHome'
 import { CocktailSearchPage } from './cocktail-app/pages/CocktailSearch/CocktailSearchPage'
 import { CocktailPage } from './cocktail-app/pages/CocktailPage/CocktailPage'
-import { EditCocktailPage } from './cocktail-app/pages/EditCocktail/EditCocktailPage'
 import { AddCocktailPage } from './cocktail-app/pages/AddCocktail/AddCocktailPage'
+import { EditCocktailPage } from './cocktail-app/pages/EditCocktail/EditCocktailPage'
+import { IngredientSearchPage } from './cocktail-app/pages/IngredientSearch/IngredientSearchPage'
 import { AddIngredientPage } from './cocktail-app/pages/AddIngredient/AddIngredientPage'
+import { EditIngredientPage } from './cocktail-app/pages/EditIngredient/EditIngredientPage'
 import { AdminPage } from './cocktail-app/pages/AdminPage/AdminPage'
 import { NotFoundPage } from './NotFoundPage'
-import { cocktailLoader } from './loaders/cocktailLoader'
 import { cocktailListLoader } from './loaders/cocktailListLoader'
+import { cocktailLoader } from './loaders/cocktailLoader'
+import { ingredientListLoader } from './loaders/ingredientListLoader'
+import { ingredientLoader } from './loaders/ingredientLoader'
 
 SuperTokens.init({
   appInfo: {
@@ -79,6 +83,21 @@ const router = createBrowserRouter([
           <SessionAuth>
             <AddCocktailPage/>
           </SessionAuth>,
+      },
+      {
+        path:"/ingredients",
+        element:<IngredientSearchPage/>,
+        loader: ingredientListLoader(queryClient),
+        children: [
+          {
+            path:"/ingredients/:ingredientId/edit",
+            element: 
+              <SessionAuth>
+                <EditIngredientPage/>
+              </SessionAuth>,
+            loader: ingredientLoader(queryClient),
+          },
+        ]
       },
       {
         path:"/new-ingredient",

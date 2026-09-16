@@ -1,13 +1,13 @@
-import styles from "./CocktailSearchBar.module.css"
+import styles from "./SearchBar.module.css"
 
-export function CocktailSearchBar({query, setQuery}) {
+export function SearchBar({query, setQuery, placeholder="Search..."}) {
   return (
     <div className={styles.searchBar}>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search Cocktails..."
+        placeholder={placeholder}
         className={styles.input}
       />
     </div>

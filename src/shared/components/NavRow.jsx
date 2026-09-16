@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router';
 
-export function NavRow({ index, style, items, renderItem, customStyles, pathPrefix }) {
+export function NavRow({ index, style, items, renderItem, customStyles, renderPath }) {
   const item = items[index]
   const location = useLocation();
-  const path = pathPrefix + item.id
+  const path = renderPath(item.id)
   const isActive = location.pathname === path;
 
   return (

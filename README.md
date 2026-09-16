@@ -72,7 +72,6 @@ src/
 │ ├─hooks/         # useDeferredQuery
 │ ├─styles/        # Reusable generic css modules
 │ └─utils/         # arrayUtils, localStorageUtils, mathUtils
-├─queryClient.js   # Tanstack Query singleton queryClient for use in App.jsx and loaders
 └─App.jsx          # router setup
 ```
 
@@ -80,25 +79,25 @@ CSS Modules throughout. Generic, reusable styles (buttons, form fields, page lay
 
 ## Routes
 
-| Path                          | Renders                                         |
-|-------------------------------|-------------------------------------------------|
-| `/`                           | Home page                                       |
-| `/cocktails`                  | Search page (loads the full cocktail list)      |
-| `/cocktails/:cocktailId`      | Recipe detail, nested inside the search page    |
-| `/cocktails/:cocktailId/edit` | Recipe edit form, nested inside the search page |
-| `/new-cocktail`               | Add new cocktail form                           |
-| `/new-ingredient`             | Add new ingredient form                         |
-| `/admin`                      | Admin panel (placeholder)                       |
+| Path                              | Renders                                         |
+|-----------------------------------|-------------------------------------------------|
+| `/`                               | Home page                                       |
+| `/cocktails`                      | Search page (loads the full cocktail list)      |
+| `/cocktails/:cocktailId`          | Recipe detail, nested inside the search page    |
+| `/cocktails/:cocktailId/edit`     | Recipe edit form, nested inside the search page |
+| `/new-cocktail`                   | Add new cocktail form                           |
+| `/ingredients`                    | Search page (loads the full ingredient list)    |
+| `/ingredients/:ingredientId/edit` | Ingredient edit, nested inside the search page  |
+| `/new-ingredient`                 | Add new ingredient form                         |
+| `/admin`                          | Admin panel (placeholder)                       |
 
 ## Development roadmap
 
-1. **Update data loading to use Tanstack Query**
-2. **Add Ingredient list page**
-3. **Replace the in-memory data source with a real API**
-4. **Add User role functionality in SuperTokens to admin page**
-5. **Add Create User function to admin page to generate invite links**
-6. **Favorites list**
-7. **Personal Recipe Creation**
+1. **Replace the in-memory data source with a real API**
+1. **Add User role functionality in SuperTokens to admin page**
+1. **Add Create User function to admin page to generate invite links**
+1. **Favorites list**
+1. **Personal Recipe Creation**
 
 Additional roadmap items (in no particular order):
 - **Typescript update**

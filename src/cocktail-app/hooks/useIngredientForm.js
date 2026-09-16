@@ -10,6 +10,17 @@ import { useRecipeMutation } from "./useRecipeMutation"
 export function useIngredientForm(ingredient, onSubmitSuccess){
     const navigate = useNavigate()
 
+    const currentIngredient = ingredient ?
+    {
+        ingredientId: ingredient.id,
+        ingredientName: ingredient.name,
+        parentId: ingredient.parentId,
+    }
+    : {
+        ingredientName: "",
+        parentId: 0
+    }
+
     const {
         control,
         register,
@@ -18,10 +29,7 @@ export function useIngredientForm(ingredient, onSubmitSuccess){
         formState: {errors, isSubmitting, isSubmitSuccessful}
     } = useForm({
         resolver:zodResolver(ingredientSchema),
-        defaultValues:{
-            ingredientName:"",
-            parentId:0
-        },
+        values:currentIngredient,
     })
 
     const {

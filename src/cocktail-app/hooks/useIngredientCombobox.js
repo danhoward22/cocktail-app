@@ -12,8 +12,9 @@ export function useIngredientCombobox({initialId, onChange}){
   const debouncedValue = useDebouncedValue(filterValue)
   
   const {
+    isLoading:initialIsLoading,
     data: initialIngredient,
-  } = useQuery(ingredientQueryOptions(initialId))
+  } = useQuery(ingredientQueryOptions(initialId, skipSearchRef.current===undefined))
 
   const {
     data: items = [],
@@ -52,5 +53,5 @@ export function useIngredientCombobox({initialId, onChange}){
 
   const noResults = !isLoading && isSuccess && items.length === 0
 
-  return {...combobox, items, loading: isLoading, noResults}
+  return {...combobox, items, loading: isLoading || initialIsLoading, noResults}
 }

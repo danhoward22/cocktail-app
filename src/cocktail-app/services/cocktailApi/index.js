@@ -9,6 +9,7 @@ export const {
     fetchCocktail,
     createCocktail,
     updateCocktail,
+    fetchIngredientList,
     fetchFilteredIngredients,
     fetchIngredient,
     createIngredient,

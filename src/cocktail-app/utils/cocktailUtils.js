@@ -24,7 +24,7 @@ export function getDefaultCocktail(){
   }
 }
 
-export function getDefaultIngredient(){
+export function getDefaultCocktailIngredient(){
   return {
     id: 0,
     name: "",
@@ -33,8 +33,4 @@ export function getDefaultIngredient(){
     qty: 0,
     units: "oz"
   }
-}
-
-export function isValidId(id){
-  return id>0 && Number.isInteger(parseFloat(id))
 }

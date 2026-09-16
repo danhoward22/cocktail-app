@@ -13,7 +13,7 @@ export function CocktailSearchToggle({searchBy, setSearchBy}) {
           onChange={()=>{setSearchBy('name')}}
           className={styles.input}
         />
-        Name
+        by Name
       </label>
 
       <label className={styles.option}>
@@ -25,7 +25,7 @@ export function CocktailSearchToggle({searchBy, setSearchBy}) {
           onChange={()=>{setSearchBy('ingredient')}}
           className={styles.input}
         />
-        Ingredient
+        by Ingredient
       </label>
     </div>
   )

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import { Link } from "react-router"
+import { useSessionContext } from "supertokens-auth-react/recipe/session"
 
 import { Garnishes } from "./Garnishes"
 import { Ingredient } from "./Ingredient"
@@ -12,6 +13,7 @@ export function Cocktail({cocktail}){
     const [isScrolled, setIsScrolled] = useState(false)
     const [multiplier, setMultiplier] = useState(1)
     const cardRef = useRef(null)
+    const {doesSessionExist} = useSessionContext()
 
     if (typeof cocktail.name !== "string") {
         console.warn("Cocktail is missing a name:", cocktail);
@@ -40,7 +42,7 @@ export function Cocktail({cocktail}){
                         {multipliers.map((i) => <option key={i} value={i}>x{i==.5 ? '½' : i}</option>)}
                     </select>
                 </div>
-                <Link to={`/cocktails/${cocktail.id}/edit`} className={styles.edit}>Edit</Link>
+                {doesSessionExist && <Link to={`/cocktails/${cocktail.id}/edit`} className={styles.edit}>Edit</Link>}
                 <Link to='/cocktails' className={styles.close}>Close</Link>
             </div>
             <ul className={styles.ingredients}>

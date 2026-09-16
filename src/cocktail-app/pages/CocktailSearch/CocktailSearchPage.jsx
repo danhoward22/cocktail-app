@@ -2,7 +2,7 @@ import { Outlet, useMatches } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 
 import { CocktailSearchToggle } from "./CocktailSearchToggle"
-import { CocktailSearchBar } from "./CocktailSearchBar"
+import { SearchBar } from "/src/shared/components/ui/SearchBar"
 import { CocktailList } from "./CocktailList"
 import { Loading } from "/src/shared/components/Loading"
 
@@ -43,7 +43,7 @@ export function CocktailSearchPage() {
   return (
     <div className={styles.page}>
       <div className={styles.searchControls}>
-        <CocktailSearchBar query={query} setQuery={setQuery} />
+        <SearchBar query={query} setQuery={setQuery} placeholder="Search Cocktails..." />
         <CocktailSearchToggle searchBy={searchBy} setSearchBy={setSearchBy}/>
       </div>
       {listMarkup}

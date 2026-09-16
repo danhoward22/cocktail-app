@@ -1,13 +1,14 @@
 import { Controller } from "react-hook-form"
 
 import SubmitButton from "/src/shared/components/ui/SubmitButton"
+import CancelButton from "/src/shared/components/ui/CancelButton"
 import ErrorMessage from "/src/shared/components/ui/ErrorMessage"
 import { IngredientCombobox } from "./IngredientCombobox"
 import { useIngredientForm } from "../hooks/useIngredientForm"
 
 import styles from "./IngredientForm.module.css"
 
-export function IngredientForm({ingredient, onSubmitSuccess}){
+export function IngredientForm({ingredient, onSubmitSuccess, cancelPath}){
 
     const {
         control,
@@ -41,6 +42,7 @@ export function IngredientForm({ingredient, onSubmitSuccess}){
 
             <div className={styles.actions}>
                 <SubmitButton isSubmitting={isSubmitting}/>
+                {cancelPath && <CancelButton path={cancelPath}/>}
                 <ErrorMessage variant="banner" error={errors.root} />
             </div>
         </form>

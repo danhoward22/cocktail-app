@@ -1,8 +1,24 @@
 import { arrayContainsSubstring, objectIdExists, objectNameExists } from "/src/shared/utils/arrayUtils"
 import { getLocalStorage, setLocalStorage } from "/src/shared/utils/localStorageUtils"
-import { isValidId } from "../../utils/cocktailUtils"
 import { units } from "../../utils/unitUtils"
 import { drinkData, ingredientData, drinkIngredientData } from "../../data/mockData"
+
+
+function isValidId(id){
+  return id>0 && Number.isInteger(parseFloat(id))
+}
+
+function objectNameSort(a,b){
+  return a.name.localeCompare(b.name, undefined, { numeric: true })
+}
+
+function cocktailSort(a,b){
+  const result = objectNameSort(a,b)
+  if(result===0){
+    return a.source.localeCompare(b.source, undefined, { numeric: true })
+  }
+  return result
+}
 
 function getParentIngredientNames(ingredientArray, parentId){
   const parentNames = []
@@ -90,6 +106,7 @@ export async function fetchCocktailList(){
     console.error("Error parsing cocktails in fetchCocktailList: ", e.message)
   }
 
+  cocktailList.sort(cocktailSort)
   return cocktailList
 }
 
@@ -355,6 +372,20 @@ function validateIngredient(ingredient, ingredientArr = null, forUpdate = false)
   }
 }
 
+export async function fetchIngredientList(){
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  try{
+    const ingredientArray = getLocalStorage("ingredientData") || ingredientData
+    ingredientArray.sort(objectNameSort)
+    return ingredientArray.map(i => ({id:i.id, name:i.name}))
+  }catch (e) {
+    console.error("Error parsing ingredients in fetchIngredientList: ", e.message)
+  }
+
+  return []
+}
+
 export async function fetchFilteredIngredients(inputValue){
   await new Promise((resolve) => setTimeout(resolve, 1000))
   const options = []
@@ -369,6 +400,7 @@ export async function fetchFilteredIngredients(inputValue){
     }
   })
 
+  options.sort(objectNameSort)
   return options
 }
 
