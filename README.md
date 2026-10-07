@@ -93,6 +93,7 @@ CSS Modules throughout. Generic, reusable styles (buttons, form fields, page lay
 
 ## Development roadmap
 
+1. **Update CocktailSearchPage to load full cocktail objects and normalize for search**
 1. **Replace the in-memory data source with a real API**
 1. **Add User role functionality in SuperTokens to admin page**
 1. **Add Create User function to admin page to generate invite links**

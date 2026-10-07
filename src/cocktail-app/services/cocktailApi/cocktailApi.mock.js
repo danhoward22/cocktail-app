@@ -21,6 +21,7 @@ function cocktailSort(a,b){
 }
 
 function getParentIngredientNames(ingredientArray, parentId){
+  if(!parentId) return []
   const parentNames = []
   const parent = ingredientArray.find(i => i.id==parentId)
   parentNames.push(parent.name)
@@ -157,7 +158,7 @@ function getCocktailIngredientErrors(ingredient, ingredientArr = null, errorPref
 
   return propErrors
 }
-//TODO: finalize validateCocktail
+
 function validateCocktail(cocktail, drinkArr = null, drinkIngredientArr = null, forUpdate = false){
   const propErrors = []
   const drinkArray = drinkArr || getLocalStorage("drinkData") || drinkData
@@ -362,6 +363,16 @@ function validateIngredient(ingredient, ingredientArr = null, forUpdate = false)
   if(ingredient.parentId){
     const pError = getObjectIdError({id: ingredient.parentId}, ingredientArray, "Parent ")
     if(pError) propErrors.push(pError)
+
+    if(forUpdate){
+      //ensure parentId is not a circular reference
+      let nextParentId=ingredient.parentId
+      while(nextParentId && nextParentId!=ingredient.id){
+        const parent = ingredientArray.find(i => i.id==nextParentId)
+        nextParentId=parent.parent_id
+      }
+      if(nextParentId==ingredient.id) propErrors.push(new Error(`Parent ID is a circular reference.`))
+    }
   }
 
   //throw prop errors
