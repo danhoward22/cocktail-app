@@ -46,10 +46,11 @@ function parseCocktailObject(drink, contents, ingredientArray){
           qty: content.qty
         })
       }else{
+
         ingredientList.push({
           id: ingredient.id,
           name: ingredient.name,
-          parentId: ingredient.parent_id,
+          parents: getParentIngredientNames(ingredientArray, ingredient.parent_id),
           qty: content.qty,
           units: content.units
         })
@@ -70,6 +71,7 @@ function parseCocktailObject(drink, contents, ingredientArray){
 }
 
 export async function fetchCocktailList(){
+  console.log("mockApi.fetchCocktailList")
   await new Promise((resolve) => setTimeout(resolve, 1000))
   const cocktailList = []
 
@@ -79,29 +81,8 @@ export async function fetchCocktailList(){
     const drinkContents = getLocalStorage("drinkIngredientData") || drinkIngredientData
 
     drinkArray.forEach((drink)=>{
-      const ingredientList = []
-      const parentIngredients = []
       const contents = drinkContents.filter((content)=> content.drink_id==drink.id)
-
-      contents.forEach((content) => {
-        if(!content.is_garnish){
-          try{
-            const ingredient=ingredientArray.find(i => i.id==content.ingredient_id)
-            ingredientList.push(ingredient.name)
-            if(ingredient?.parent_id) parentIngredients.push(...getParentIngredientNames(ingredientArray, ingredient.parent_id))
-          }catch(e){
-            console.error("Error parsing cocktail ingredients in fetchCocktailList: ", e.message, "drink:", drink, "ingredient:",content)
-          }
-        }
-      })
-
-      cocktailList.push({
-        id: drink.id,
-        name: drink.name,
-        ingredients: ingredientList,
-        parentIngredients: [...new Set(parentIngredients)],
-        source:drink.source
-      })
+      cocktailList.push(parseCocktailObject(drink, contents, ingredientArray))
     })
   }catch (e) {
     console.error("Error parsing cocktails in fetchCocktailList: ", e.message)
@@ -112,6 +93,7 @@ export async function fetchCocktailList(){
 }
 
 export async function fetchCocktail(id){
+  console.log("mockApi.fetchCocktail")
   await new Promise((resolve) => setTimeout(resolve, 1000))
   try{
     const drinkArray = getLocalStorage("drinkData") || drinkData
@@ -262,6 +244,7 @@ function validateCocktail(cocktail, drinkArr = null, drinkIngredientArr = null, 
 }
 
 export async function createCocktail(newCocktail){
+  console.log("mockApi.createCocktail")
   const drinkArray = getLocalStorage("drinkData") || drinkData
   const drinkContents = getLocalStorage("drinkIngredientData") || drinkIngredientData
 
@@ -305,6 +288,7 @@ export async function createCocktail(newCocktail){
 }
 
 export async function updateCocktail(cocktail){
+  console.log("mockApi.updateCocktail")
   const drinkArray = getLocalStorage("drinkData") || drinkData
   const drinkContents = getLocalStorage("drinkIngredientData") || drinkIngredientData
 
@@ -384,6 +368,7 @@ function validateIngredient(ingredient, ingredientArr = null, forUpdate = false)
 }
 
 export async function fetchIngredientList(){
+  console.log("mockApi.fetchIngredientList")
   await new Promise((resolve) => setTimeout(resolve, 1000))
 
   try{
@@ -398,6 +383,7 @@ export async function fetchIngredientList(){
 }
 
 export async function fetchFilteredIngredients(inputValue){
+  console.log("mockApi.fetchFilteredIngredients")
   await new Promise((resolve) => setTimeout(resolve, 1000))
   const options = []
   let i = 0
@@ -416,6 +402,7 @@ export async function fetchFilteredIngredients(inputValue){
 }
 
 export async function fetchIngredient(ingredientId){
+  console.log("mockApi.fetchIngredient")
   await new Promise((resolve) => setTimeout(resolve, 1000))
   const ingredientArray = getLocalStorage("ingredientData") || ingredientData
   const i=ingredientArray.find(i => i.id==parseInt(ingredientId))
@@ -427,6 +414,7 @@ export async function fetchIngredient(ingredientId){
 }
 
 export async function createIngredient(newIngredient){
+  console.log("mockApi.createIngredient")
   const ingredientArray = getLocalStorage("ingredientData") || ingredientData
   validateIngredient(newIngredient, ingredientArray)
 
@@ -447,6 +435,7 @@ export async function createIngredient(newIngredient){
 }
 
 export async function updateIngredient(ingredient){
+  console.log("mockApi.updateIngredient")
   const ingredientArray = getLocalStorage("ingredientData") || ingredientData
   validateIngredient(ingredient, ingredientArray, true)
 

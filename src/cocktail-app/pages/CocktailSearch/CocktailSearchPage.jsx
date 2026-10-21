@@ -9,7 +9,7 @@ import { Loading } from "/src/shared/components/Loading"
 import { cocktailListQueryOptions } from "../../queries/cocktailQueries"
 import { useDeferredQuery } from "/src/shared/hooks/useDeferredQuery"
 import { useSearchBy } from "../../hooks/useSearchBy"
-import { filterCocktails } from "../../utils/cocktailUtils"
+import { buildSearchIndex, searchCocktails } from "../../utils/cocktailUtils"
 
 import styles from "./CocktailSearchPage.module.css"
 
@@ -36,7 +36,8 @@ export function CocktailSearchPage() {
       </div>
     )
   }else{
-    const filteredCocktails = filterCocktails(cocktails, deferredQuery, searchBy)
+    const searchIndex = buildSearchIndex(cocktails, searchBy)
+    const filteredCocktails = searchCocktails(searchIndex, deferredQuery)
     listMarkup = <CocktailList cocktails={filteredCocktails}/>
   }
 
@@ -55,31 +56,3 @@ export function CocktailSearchPage() {
     </div>
   )
 }
-
-// // searchIndex.js
-// const normalize = (s) =>
-//   s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-// export function buildSearchIndex(cocktails) {
-//   return cocktails.map((c) => {
-//     const terms = [
-//       c.name,
-//       c.source,
-//       ...c.ingredients.flatMap((i) => [i.name, ...i.parents]),
-//       ...c.garnishes.map((g) => g.name),
-//     ];
-//     return { cocktail: c, haystack: normalize(terms.filter(Boolean).join(" ")) };
-//   });
-// }
-
-// export function search(index, query) {
-//   const tokens = normalize(query).split(/\s+/).filter(Boolean);
-//   if (!tokens.length) return index.map((e) => e.cocktail);
-//   return index
-//     .filter((e) => tokens.every((t) => e.haystack.includes(t)))
-//     .map((e) => e.cocktail);
-// }
-
-// // CocktailSearchPage
-// const index = useMemo(() => buildSearchIndex(cocktails), [cocktails]);
-// const results = useMemo(() => search(index, query), [index, query]);

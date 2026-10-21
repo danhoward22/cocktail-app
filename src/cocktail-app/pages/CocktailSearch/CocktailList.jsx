@@ -17,7 +17,12 @@ export function CocktailList({cocktails}) {
           {item.name}
           {item.source && <span className={styles.itemSource}>{item.source}</span>}
         </div>
-        <div className={styles.itemIngredients}>{item.ingredients.join(", ")}</div>
+        <div className={styles.itemIngredients}>
+          {[
+            ...item.ingredients.map((i) => i.name),
+            ...item.garnishes.map((g) => g.name)
+          ].join(", ")}
+        </div>
       </>
     )
   }

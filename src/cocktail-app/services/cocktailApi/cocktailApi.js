@@ -1,41 +1,36 @@
+const BASE_URL = `${import.meta.env.VITE_API_DOMAIN}/api/cocktails`
+
 export async function fetchCocktailList(){
-//   const response = await fetch(`/api/cocktails/all`);
-//   return response.json();
+    const response = await fetch(BASE_URL)
+    if (!response.ok) throw new Error('Failed to fetch cocktail list')
+    return response.json()
 }
 
 export async function fetchCocktail(cocktailId){
-//   const response = await fetch(`/api/cocktails/${cocktailId}`);
-//   return response.json();
-
-//OR
-
-//   //to do: update to API call. Simulate delay for now.
-// //   if (activeController) {
-// //     activeController.abort();
-// //   }
-
-// //   activeController = new AbortController();
-
-// //   try {
-// //     const response = await fetch(`https://example.com{userId}`, {
-// //       signal: activeController.signal
-// //     });
-    
-// //     const data = await response.json();
-// //     console.log("User data loaded:", data);
-// //   } catch (error) {
-// //     if (error.name === 'AbortError') {
-// //       console.log("Previous request successfully aborted.");
-// //     } else {
-// //       console.error("Fetch error:", error);
-// //     }
-// //   }
-
+    const response = await fetch(`${BASE_URL}/${cocktailId}`)
+    if (!response.ok) throw new Error('Failed to fetch cocktail')
+    return response.json()
 }
 
-export async function createCocktail(newCocktail){}
+export async function createCocktail(newCocktail){
+    const response = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newCocktail),
+    });
+    if (!response.ok) throw new Error('Failed to create cocktail')
+    return response.json()
+}
 
-export async function updateCocktail(cocktail){}
+export async function updateCocktail(cocktail){
+    const response = await fetch(`BASE_URL/${cocktail.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(cocktail),
+    });
+    if (!response.ok) throw new Error('Failed to update cocktail')
+    return response.json()
+}
 
 export async function fetchIngredientList(){}
 

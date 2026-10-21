@@ -5,13 +5,16 @@ const useMock = import.meta.env.VITE_USE_MOCK_API === 'true';
 const api = useMock ? mockApi : realApi;
 
 export const { 
-    fetchCocktailList,
-    fetchCocktail,
-    createCocktail,
-    updateCocktail,
     fetchIngredientList,
     fetchFilteredIngredients,
     fetchIngredient,
     createIngredient,
     updateIngredient,
 } = api;
+
+export const {
+    fetchCocktailList,
+    fetchCocktail,
+    createCocktail,
+    updateCocktail,
+} = realApi;
